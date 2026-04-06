@@ -72,15 +72,15 @@ class AbandonedCartService {
         if (!$abandonedCart->getCustomer() instanceof CustomerEntity) {
             return false;
         }
-        
+
         // Check if guest emails are allowed
         $allowGuestEmails = $this->configService->getAllowGuestEmails($abandonedCart->getSalesChannel());
-        
+
         // Exclude guest customers unless explicitly allowed
-		if ($abandonedCart->getCustomer()->getGuest() && !$allowGuestEmails) {
-		    return false;
-		}
-        
+        if ($abandonedCart->getCustomer()->getGuest() && !$allowGuestEmails) {
+            return false;
+        }
+
         $customFields = $abandonedCart->getCustomer()->getCustomFields();
         return !is_array($customFields)
             || !key_exists(self::REMINDER_STATUS_FIELD_NAME, $customFields)
@@ -96,7 +96,7 @@ class AbandonedCartService {
             Uuid::randomHex(),
             $abandonedCart->getSalesChannelId(),
             [
-                SalesChannelContextService::LANGUAGE_ID => $abandonedCart->getSalesChannelDomain()->getLanguageId(),
+                SalesChannelContextService::LANGUAGE_ID => $abandonedCart->getSalesChannelDomain()?->getLanguageId(),
             ]
         );
 
@@ -111,12 +111,17 @@ class AbandonedCartService {
         // Setup the Symfony router context to simulate the Abandoned Cart SalesChannelDomain.
         // In console context the router context is not set and urls in email would fallback to http://localhost
         $originalRouterContext = clone $this->router->getContext();
-        $this->switchRouterContext($abandonedCart->getSalesChannelDomain()->getUrl());
+        $salesChannelDomain = $abandonedCart->getSalesChannelDomain();
+        if ($salesChannelDomain === null) {
+            return false;
+        }
+        $this->switchRouterContext($salesChannelDomain->getUrl());
 
         /** @var MailTemplateEntity|null $mailTemplate */
         $mailTemplate = $this->getMailTemplate($abandonedCart, $context);
 
         if (is_null($mailTemplate) || is_null($mailTemplate->getTranslation('senderName'))) {
+            $this->router->setContext($originalRouterContext);
             return false;
         }
 
@@ -129,9 +134,14 @@ class AbandonedCartService {
         }
 
         # Map information of customer to template
-        $recipientEmail = $abandonedCart->getEmail() ?: $abandonedCart->getCustomer()->getEmail();
+        $customer = $abandonedCart->getCustomer();
+        if ($customer === null) {
+            $this->router->setContext($originalRouterContext);
+            return false;
+        }
+        $recipientEmail = $abandonedCart->getEmail() ?: $customer->getEmail();
         $recipients = [
-            $recipientEmail => $abandonedCart->getCustomer()->getFirstName(),
+            $recipientEmail => $customer->getFirstName(),
         ];
         
         $mailData = [
@@ -178,12 +188,11 @@ class AbandonedCartService {
             $this->promotionService->generateNewPromotionCodes($salesChannelContext);
             $this->cartService->deleteCart($cart, $salesChannelContext);
 
+            $this->router->setContext($originalRouterContext);
             return true;
         }
 
-        // Switch back to original router context
         $this->router->setContext($originalRouterContext);
-
         return false;
     }
 
@@ -264,10 +273,7 @@ class AbandonedCartService {
         return $newCart;
     }
 
-    /**
-     * @param array $promotions
-     */
-    public function addPromotion($promotions, cart $promotionCart, SalesChannelContext $salesChannelContext): void {
+    public function addPromotion(array $promotions, Cart $promotionCart, SalesChannelContext $salesChannelContext): void {
         //Getting first promotion code key and value
         $firstPromotionCodeKey = array_key_first($promotions);
         $firstPromotionCodeValue = $promotions[$firstPromotionCodeKey];

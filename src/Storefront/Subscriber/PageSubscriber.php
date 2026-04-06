@@ -143,9 +143,9 @@ class PageSubscriber implements EventSubscriberInterface
         $employeeCustomerId = $this->resolveEmployeeCustomerId($customer, $customerEmail);
 
         // Exclude guest customers unless explicitly allowed
-		if ($customer->getGuest() && !$allowGuestEmails) {
-		    return;
-		}
+        if ($customer->getGuest() && !$allowGuestEmails) {
+            return;
+        }
 
         $salesChannelDomainId = $this->currentRequest->attributes->get('sw-domain-id');
 

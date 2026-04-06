@@ -107,8 +107,9 @@ class CartService
                     default:
                         $lineItem->$setMethod($value);
                 }
-            } catch (\Exception $e) {
-                // do nothing
+            } catch (\Exception) {
+                // Skip properties that cannot be set on this line item
+                continue;
             }
         }
 
