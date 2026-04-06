@@ -96,7 +96,7 @@ class AbandonedCartService {
             Uuid::randomHex(),
             $abandonedCart->getSalesChannelId(),
             [
-                SalesChannelContextService::LANGUAGE_ID => $abandonedCart->getSalesChannelDomain()->getLanguageId(),
+                SalesChannelContextService::LANGUAGE_ID => $abandonedCart->getSalesChannelDomain()?->getLanguageId(),
             ]
         );
 
@@ -111,7 +111,11 @@ class AbandonedCartService {
         // Setup the Symfony router context to simulate the Abandoned Cart SalesChannelDomain.
         // In console context the router context is not set and urls in email would fallback to http://localhost
         $originalRouterContext = clone $this->router->getContext();
-        $this->switchRouterContext($abandonedCart->getSalesChannelDomain()->getUrl());
+        $salesChannelDomain = $abandonedCart->getSalesChannelDomain();
+        if ($salesChannelDomain === null) {
+            return false;
+        }
+        $this->switchRouterContext($salesChannelDomain->getUrl());
 
         /** @var MailTemplateEntity|null $mailTemplate */
         $mailTemplate = $this->getMailTemplate($abandonedCart, $context);
@@ -129,9 +133,13 @@ class AbandonedCartService {
         }
 
         # Map information of customer to template
-        $recipientEmail = $abandonedCart->getEmail() ?: $abandonedCart->getCustomer()->getEmail();
+        $customer = $abandonedCart->getCustomer();
+        if ($customer === null) {
+            return false;
+        }
+        $recipientEmail = $abandonedCart->getEmail() ?: $customer->getEmail();
         $recipients = [
-            $recipientEmail => $abandonedCart->getCustomer()->getFirstName(),
+            $recipientEmail => $customer->getFirstName(),
         ];
         
         $mailData = [
@@ -178,12 +186,11 @@ class AbandonedCartService {
             $this->promotionService->generateNewPromotionCodes($salesChannelContext);
             $this->cartService->deleteCart($cart, $salesChannelContext);
 
+            $this->router->setContext($originalRouterContext);
             return true;
         }
 
-        // Switch back to original router context
         $this->router->setContext($originalRouterContext);
-
         return false;
     }
 

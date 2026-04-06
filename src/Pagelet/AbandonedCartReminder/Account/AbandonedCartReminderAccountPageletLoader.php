@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zeobv\AbandonedCart\Pagelet\AbandonedCartReminder\Account;
 
 use Shopware\Core\Checkout\Customer\CustomerEntity;
+use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Adapter\Translation\Translator;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -14,7 +15,8 @@ class AbandonedCartReminderAccountPageletLoader
 {
     public function __construct(
         private EntityRepository $customerRepository,
-        private Translator $translator
+        private Translator $translator,
+        private LoggerInterface $logger
     ) {
     }
 
@@ -53,6 +55,7 @@ class AbandonedCartReminderAccountPageletLoader
                 ]
             );
         } catch (\Exception $exception) {
+            $this->logger->error('Abandoned cart subscription failed', ['exception' => $exception]);
             $pagelet->setSuccess(false);
             $pagelet->setMessages(
                 [
@@ -91,6 +94,7 @@ class AbandonedCartReminderAccountPageletLoader
                 ]
             );
         } catch (\Exception $exception) {
+            $this->logger->error('Abandoned cart unsubscription failed', ['exception' => $exception]);
             $pagelet->setSuccess(false);
             $pagelet->setMessages(
                 [

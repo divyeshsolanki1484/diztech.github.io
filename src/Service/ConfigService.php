@@ -29,7 +29,7 @@ class ConfigService
     }
 
     /**
-     * @deprecated
+     * @deprecated tag:v4.0.0 - Use schedule configuration instead. Will be removed in v4.0.0.
      */
     public function getProcessStartDelay(SalesChannelEntity $salesChannelEntity): int
     {

@@ -8,6 +8,7 @@
         <service id="Zeobv\AbandonedCart\Pagelet\AbandonedCartReminder\Account\AbandonedCartReminderAccountPageletLoader">
             <argument type="service" id="customer.repository" />
             <argument type="service" id="Shopware\Core\Framework\Adapter\Translation\Translator" />
+            <argument type="service" id="logger" />
         </service>
     </services>
 </container>
