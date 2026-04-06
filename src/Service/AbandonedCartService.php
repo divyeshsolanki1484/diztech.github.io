@@ -77,9 +77,9 @@ class AbandonedCartService {
         $allowGuestEmails = $this->configService->getAllowGuestEmails($abandonedCart->getSalesChannel());
         
         // Exclude guest customers unless explicitly allowed
-		if ($abandonedCart->getCustomer()->getGuest() && !$allowGuestEmails) {
-		    return false;
-		}
+        if ($abandonedCart->getCustomer()->getGuest() && !$allowGuestEmails) {
+            return false;
+        }
         
         $customFields = $abandonedCart->getCustomer()->getCustomFields();
         return !is_array($customFields)
@@ -264,10 +264,7 @@ class AbandonedCartService {
         return $newCart;
     }
 
-    /**
-     * @param array $promotions
-     */
-    public function addPromotion($promotions, cart $promotionCart, SalesChannelContext $salesChannelContext): void {
+    public function addPromotion(array $promotions, Cart $promotionCart, SalesChannelContext $salesChannelContext): void {
         //Getting first promotion code key and value
         $firstPromotionCodeKey = array_key_first($promotions);
         $firstPromotionCodeValue = $promotions[$firstPromotionCodeKey];

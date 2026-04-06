@@ -41,7 +41,7 @@
             "instructions": "De tijdschema tabel wordt gebruikt om te configureren wanneer en welke mail verstuurd moet worden voor de verlaten winkelwagen. Het schema werkt van boven naar beneden wat betekent dat de eerste vertraging de initiële vertraging zal zijn die gebruikt moet worden om de verlaten winkelwagen mail te versturen. De volgende vertragingen zullen worden getimed vanaf het moment dat de laatste mail werd verstuurd. U kunt één of meerdere rijen verwijderen door het selectievakje aan te vinken. Een knop \"Verwijderen\" zal verschijnen waarmee u de selectie kunt verwijderen. Uw wijzigingen zullen permanent zijn zodra u op de knop \"Opslaan\" rechtsboven klikt",
             "delayLabel":  "Vertraging (voor initiële/na vorige mail in minuten)",
             "templateLabel": "Mail sjabloon",
-            "ButtonAddRow": "Rij toevoegen",
+            "buttonAddRow": "Rij toevoegen",
             "contextMenuShowMailTemplate": "Bekijk sjabloon",
             "contextDisabled": "Dubbelklik op de rij om te bewerken.",
             "delaySuffix": "minuten"
