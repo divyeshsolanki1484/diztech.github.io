@@ -1,0 +1,90 @@
+{% block zeo_abandoned_cart_details_modal %}
+    <sw-modal :title="$tc('zeo-abandoned-cart.detailsModal.modalTitle')"
+              :isLoading="isLoading"
+              @modal-close="onClose">
+        {% block zeo_abandoned_cart_details_modal_line_items_grid %}
+            <sw-container type="row" class="zeo-abandoned-cart-details-line-items-grid">
+
+                {% block zeo_abandoned_cart_details_modal_line_items_grid_grid %}
+                    <sw-data-grid :dataSource="items"
+                                  :columns="getLineItemColumns"
+                                  :fullPage="false"
+                                  :showSettings="false"
+                                  :showSelection="false"
+                                  :showActions="true"
+                                  :isLoading="isLoading"
+                                  :allowColumnEdit="false"
+                                  :allowInlineEdit="false"
+                                  :compactMode="false"
+                                  identifier="zeo-abandoned-cart-details-line-item-grid"
+                                  class="zeo-abandoned-cart-details-line-items-grid__data-grid">
+
+                        {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns %}
+                            {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_label %}
+                                <template #column-label="{ item, isInlineEdit}">
+                                    {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_label_content %}
+                                        <span>
+                                            {{ item.label }}
+                                        </span>
+                                    {% endblock %}
+                                </template>
+                            {% endblock %}
+
+                            {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_quantity %}
+                                <template #column-quantity="{ item, isInlineEdit}">
+                                    {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_quantity_content %}
+                                        <span>
+                                            {{ item.quantity }}
+                                        </span>
+                                    {% endblock %}
+                                </template>
+                            {% endblock %}
+
+                            {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_unit_price %}
+                                <template #column-unitPrice="{ item, isInlineEdit}">
+                                    {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_unit_price_content %}
+                                        <span v-if="item.price">
+                                            {{ currencyFilter(item.price.unitPrice)}}
+                                        </span>
+                                    {% endblock %}
+                                </template>
+                            {% endblock %}
+
+                            {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_total_price %}
+                                <template #column-totalPrice="{ item, isInlineEdit}">
+                                    {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_columns_total_price_content %}
+                                        <span v-if="item.price">
+                                            {{ currencyFilter(item.price.totalPrice) }}
+                                        </span>
+                                    {% endblock %}
+                                </template>
+                            {% endblock %}
+
+                            {% block zeo_abandoned_cart_details_modal_line_items_grid_grid_actions %}
+                                <template #actions="{ item }">
+                                    {% block sw_order_line_items_grid_grid_actions_show %}
+                                        <sw-context-menu-item v-if="item.type === 'product' && item.referencedId"
+                                                              icon="regular-eye"
+                                                              @click="navigateToProduct(item.referencedId)">
+                                            {% block sw_order_line_items_grid_grid_actions_show_label %}
+                                                {{ $tc('zeo-abandoned-cart.detailsModal.contextMenuShowProduct') }}
+                                            {% endblock %}
+                                        </sw-context-menu-item>
+                                        <sw-context-menu-item v-else
+                                                              :disabled="true"
+                                                              variant="danger"
+                                                              icon="regular-eye-slash">
+                                            {% block sw_order_line_items_grid_grid_actions_unavailable_label %}
+                                                {{ $tc('zeo-abandoned-cart.detailsModal.contextMenuUnavailable') }}
+                                            {% endblock %}
+                                        </sw-context-menu-item>
+                                    {% endblock %}
+                                </template>
+                            {% endblock %}
+                        {% endblock %}
+                    </sw-data-grid>
+                {% endblock %}
+            </sw-container>
+        {% endblock %}
+    </sw-modal>
+{% endblock %}

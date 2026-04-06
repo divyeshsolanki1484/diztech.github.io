@@ -1,0 +1,25 @@
+import ListingRepository from 'Repositories/storefront/products/ListingRepository';
+
+export default class ListingAction {
+
+    /**
+     *
+     */
+    clickOnFirstProduct() {
+
+        const repo = new ListingRepository();
+
+        repo.getFirstProduct().click();
+    }
+
+    /**
+     *
+     */
+    clickOnSecondProduct() {
+
+        const repo = new ListingRepository();
+
+        repo.getSecondProduct().click();
+    }
+
+}

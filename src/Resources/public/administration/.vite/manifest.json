@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "assets/zeobv-abandoned-cart-DQRL7GNj.js",
+    "name": "zeobv-abandoned-cart",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "assets/zeobv-abandoned-cart-DEzrfZuD.css"
+    ]
+  }
+}

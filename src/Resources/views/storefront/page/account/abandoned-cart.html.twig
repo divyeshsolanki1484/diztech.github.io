@@ -1,0 +1,51 @@
+{% block page_account_overview_abandoned_cart_content_inner %}
+
+    {% block page_account_overview_abandoned_cart_content_success %}
+        {% if abandonedCartAccountPagelet.messages|length > 0 %}
+            <div class="zeobv-abandoned-cart-alerts">
+                {% for message in abandonedCartAccountPagelet.messages %}
+                    {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with { 'type': message.type, 'content': message.text} %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% set formAutoSubmitOptions = {
+        useAjax: true,
+        ajaxContainerSelector: '.js-abandoned-cart-wrapper'
+    } %}
+
+    {% block page_account_overview_abandoned_cart_content_form %}
+        <form name="abandonedCartReminderRegister"
+              method="post"
+              action="{{ path("frontend.zeo.abandonedcart.account.subscription.update") }}"
+              data-form-auto-submit="true"
+              data-form-auto-submit-options='{{ formAutoSubmitOptions|json_encode }}'
+        >
+            {% block page_account_overview_abandoned_cart_content_form_check_control %}
+                <div class="form-check">
+                    {% block page_account_overview_abandoned_cart_content_form_input %}
+                        {% set subscribe = constant('Zeobv\\AbandonedCart\\Service\\AbandonedCartService::REMINDER_MAIL_STATUS_SUBSCRIBED') %}
+                        {% set unsuscribed = constant('Zeobv\\AbandonedCart\\Service\\AbandonedCartService::REMINDER_MAIL_STATUS_UNSUBSCRIBED') %}
+                        {% set status = abandonedCartAccountPagelet.subscriptionStatus == subscribe %}
+
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="abandonedCartReminderRegister"
+                               name="option"
+                               autocomplete="off"
+                               value="{{ subscribe }}"
+                               {% if status %}checked="checked"{% endif %}>
+                    {% endblock %}
+
+                    {% block page_account_overview_abandoned_cart_content_form_label %}
+                        <label class="form-check-label custom-control-label"
+                               for="abandonedCartReminderRegister">
+                            {{ "zeobv-abandoned-cart.account.reminderSettings"|trans({'%shopname%': config('core.basicInformation.shopName')})|sw_sanitize }}
+                        </label>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </form>
+    {% endblock %}
+{% endblock %}

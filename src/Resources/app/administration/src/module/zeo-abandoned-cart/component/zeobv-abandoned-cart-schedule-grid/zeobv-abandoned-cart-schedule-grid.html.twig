@@ -1,0 +1,132 @@
+{% block zeobv_abandoned_cart_schedule_grid %}
+    <sw-container type="row" class="zeobv-abandoned-cart-schedule-grid">
+        <h4>{{ $tc('zeo-abandoned-cart.schedule-grid.title') }}</h4>
+        <ol style="padding-bottom: 15px; margin-left: 15px">
+            <li>{{ $tc('zeo-abandoned-cart.schedule-grid.guideStep1') }}</li>
+            <li>{{ $tc('zeo-abandoned-cart.schedule-grid.guideStep2') }}</li>
+            <li>{{ $tc('zeo-abandoned-cart.schedule-grid.guideStep3') }}</li>
+            <li>{{ $tc('zeo-abandoned-cart.schedule-grid.guideStep4') }}</li>
+        </ol>
+        <h6 style="margin-bottom: 30px">{{ $tc('zeo-abandoned-cart.schedule-grid.instructions') }}</h6>
+
+        {% block zeobv_abandoned_cart_schedule_grid_grid %}
+            <sw-data-grid
+                :dataSource="rows"
+                :columns="columns"
+                :fullPage="false"
+                :showSettings="false"
+                :showSelection="editable"
+                :showActions="true"
+                :isLoading="isLoading"
+                :allowColumnEdit="false"
+                :allowInlineEdit="editable"
+                :compactMode="false"
+                identifier="zeobv-abandoned-cart-schedule-grid"
+                class="zeobv-abandoned-cart-schedule-grid__data-grid"
+                @selection-change="onSelectionChanged"
+                @inline-edit-save="onInlineEditSave"
+                :isRecordEditable="(item) => true">
+
+                {% block zeobv_abandoned_cart_schedule_grid_grid_columns %}
+
+                    {% block zeobv_abandoned_cart_schedule_grid_grid_columns_quantity %}
+                        <template #column-delay="{ item, isInlineEdit }">
+
+                            {% block zeobv_abandoned_cart_schedule_grid_grid_columns_quantity_inline_edit %}
+                                <sw-number-field
+                                    v-if="isInlineEdit"
+                                    numberType="int"
+                                    v-model:value="item.delay"
+                                    :min="1"
+                                    size="small"
+                                    placeholder="0">
+                                </sw-number-field>
+                            {% endblock %}
+
+                            {% block zeobv_abandoned_cart_schedule_grid_grid_columns_quantity_content %}
+                                <template v-else>
+                                    {{ item.delay }} {{ $tc('zeo-abandoned-cart.schedule-grid.delaySuffix') }}
+                                </template>
+                            {% endblock %}
+                        </template>
+                    {% endblock %}
+
+                    {% block zeobv_abandoned_cart_schedule_grid_grid_columns_label %}
+                        <template #column-template="{ item, isInlineEdit}">
+
+                            {% block zeobv_abandoned_cart_schedule_grid_grid_columns_label_inline_edit %}
+                                <sw-entity-single-select
+                                    v-if="isInlineEdit"
+                                    entity="mail_template"
+                                    labelProperty="subject"
+                                    :value="item.templateId ? item.templateId : ''"
+                                    :context="context"
+                                    :criteria="criteria"
+                                    @update:value="(value) => onTemplateSelected(item, value)">
+                                </sw-entity-single-select>
+                            {% endblock %}
+
+                            {% block zeobv_abandoned_cart_schedule_grid_grid_columns_label_link %}
+                                <span>{{ item.templateName }}</span>
+                            {% endblock %}
+                        </template>
+                    {% endblock %}
+
+                    {% block zeobv_abandoned_cart_schedule_grid_grid_actions %}
+                        <template #actions="{ item, index }">
+                            {% block zeobv_abandoned_cart_schedule_grid_grid_actions_show %}
+                                <sw-context-menu-item
+                                    v-if="item.templateId"
+                                    icon="regular-eye"
+                                    :routerLink="{ name: 'sw.mail.template.detail', params: { id: item.templateId } }">
+                                    {% block zeobv_abandoned_cart_schedule_grid_grid_actions_show_label %}
+                                        {{ $tc('zeo-abandoned-cart.schedule-grid.contextMenuShowMailTemplate') }}
+                                    {% endblock %}
+                                </sw-context-menu-item>
+
+                                <sw-context-menu-item v-else :disabled="true">
+                                    {% block zeobv_abandoned_cart_schedule_grid_grid_actions_disabled_label %}
+                                        {{ $tc('zeo-abandoned-cart.schedule-grid.contextDisabled') }}
+                                    {% endblock %}
+                                </sw-context-menu-item>
+                            {% endblock %}
+                        </template>
+                    {% endblock %}
+
+                    {% block zeobv_abandoned_cart_schedule_grid_bulk_actions %}
+                        <template #bulk>
+                            {% block zeobv_abandoned_cart_schedule_grid_bulk_actions_delete %}
+                                <a class="link link-danger" @click="onDeleteSelectedItems">
+                                    {{ $tc('global.default.delete') }}
+                                </a>
+                            {% endblock %}
+                        </template>
+                    {% endblock %}
+                {% endblock %}
+            </sw-data-grid>
+        {% endblock %}
+
+        {% block zeobv_abandoned_cart_schedule_grid_actions %}
+            <sw-container
+                class="zeobv-abandoned-cart-schedule-grid__actions-container"
+                columns="1fr auto"
+                gap="16px"
+                v-show="editable">
+                {% block zeobv_abandoned_cart_schedule_grid_create_actions %}
+                    <div style="text-align: right;">
+                        {% block zeobv_abandoned_cart_schedule_grid_add_product %}
+                            <sw-button
+                                class="zeobv-abandoned-cart-schedule-grid__actions-container-add-row-btn"
+                                variant="ghost"
+                                size="small"
+                                @click="onAddNewRow">
+                                {{ $tc('zeo-abandoned-cart.schedule-grid.buttonAddRow') }}
+                            </sw-button>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </sw-container>
+        {% endblock %}
+
+    </sw-container>
+{% endblock %}

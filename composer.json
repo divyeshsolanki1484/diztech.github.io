@@ -1,0 +1,63 @@
+{
+    "name": "zeobv/abandoned-cart",
+    "description": "Abandoned cart plugin",
+    "version": "3.0.5",
+    "type": "shopware-platform-plugin",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "DizTech BV.",
+            "homepage": "https://www.diztech.nl",
+            "role": "Manufacturer"
+        },
+        {
+            "name": "Gydo Broos",
+            "homepage": "https://gydo.broos.work",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "shopware/core": ">=6.7.0",
+        "shopware/administration": ">=6.7.0",
+        "shopware/storefront": ">=6.7.0"
+    },
+    "require-dev": {
+        "nunomaduro/phpinsights": "dev-master"
+    },
+    "extra": {
+        "shopware-plugin-class": "Zeobv\\AbandonedCart\\ZeobvAbandonedCart",
+        "copyright": "(c) DizTech BV. All Rights Reserved.",
+        "label": {
+            "de-DE": "Verlassene Warenkorb",
+            "en-GB": "Abandoned Cart",
+            "nl-NL": "Abandoned Cart"
+        },
+        "description": {
+            "de-DE": "Bringen Sie Ihre Kunden zurück in Ihr Geschäft, indem Sie Erinnerungen an verlassene Warenkorb senden.",
+            "en-GB": "Get your customers back to your shop by sending abandoned cart reminders.",
+            "nl-NL": "Breng uw klanten terug naar uw winkel door herinneringen voor verlaten winkelwagentjes te sturen."
+        },
+        "manufacturerLink": {
+            "de-DE": "https://www.diztech.nl",
+            "en-GB": "https://www.diztech.nl",
+            "nl-NL": "https://www.diztech.nl"
+        },
+        "supportLink": {
+            "de-DE": "https://www.diztech.nl",
+            "en-GB": "https://www.diztech.nl",
+            "nl-NL": "https://www.diztech.nl"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Zeobv\\AbandonedCart\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "symfony/runtime": true
+        }
+    }
+}

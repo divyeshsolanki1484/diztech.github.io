@@ -1,0 +1,14 @@
+Time is running out!
+
+We noticed you didn't have time to complete your purchase and just left your cart in the corner of our store. No worries, this happens to the best of us!
+
+Just use the following link to complete your purchase:
+{{ url('frontend.zeo.abandonedcart.recover', {id: zeoAbandonedCart.id}) }}
+
+Items waitings for you: 
+{% for lineItem in zeoAbandonedCart.lineItems %}
+{% set nestedItem = lineItem %}
+{% block lineItem %}
+- {{ nestedItem.label|u.wordwrap(80) }}
+{% endblock %}
+{% endfor %}

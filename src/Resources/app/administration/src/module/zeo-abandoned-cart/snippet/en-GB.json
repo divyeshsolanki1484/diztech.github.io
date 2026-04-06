@@ -1,0 +1,71 @@
+{
+    "zeo-abandoned-cart": {
+        "general": {
+            "mainMenuItemLabel": "Abandoned carts",
+            "mainMenuItemDescription": "",
+            "listTitle": "Abandoned cart overview",
+            "titleSidebarItemRefresh": "Refresh"
+        },
+        "list": {
+            "messageEmpty": "No abandoned carts found",
+            "column": {
+                "email": "E-mail",
+                "lastMailSendAt": "Last reminder sent at",
+                "salesChannelDomain": "Shop",
+                "salesChannel": "Sales channel",
+                "createdAt": "Created at",
+                "updatedAt": "Last interaction"
+            },
+            "placeholders": {
+                "lastMailSendAtPlaceholder": "Pending..."
+            }
+        },
+        "detailsModal": {
+            "modalTitle": "Abandoned cart details",
+            "columnProductName": "Name",
+            "columnQuantity": "Quantity",
+            "columnUnitPriceGross": "Unit price",
+            "columnTotalPriceGross": "Total price",
+            "contextMenuShowProduct": "Show product",
+            "contextMenuUnavailable": "Unsupported type"
+        },
+        "contextActions": {
+            "openDetails": "Open details"
+        },
+        "schedule-grid": {
+            "title": "Time schedule instructions",
+            "guideStep1": "Add a new row using the add row button.",
+            "guideStep2": "Enter a value (in minutes) in the delay column.",
+            "guideStep3": "Pick a mail template to be used, be sure this mail template contains valid HTML and no illegal variables.",
+            "guideStep4": "Repeat step 1 to 4.",
+            "instructions": "The time schedule table is used to configure when and which mail should be send for the abandoned cart. The schedule works from the top down which means that the first delay will be the initial delay to be used to send the abandoned cart mail. Following delays will be timed from the time the last mail was send. You can delete one or multiple rows by selecting the checkbox. A \"Delete\" button will appear which allows you to delete the selection. Your changes will be permanent once you hit the \"Save\" button in the top right.",
+            "delayLabel":  "Delay (before initial/after previous mail in minutes)",
+            "templateLabel": "Mail template",
+            "buttonAddRow": "Add row",
+            "contextMenuShowMailTemplate": "View template",
+            "contextDisabled": "Double click the row to edit.",
+            "delaySuffix": "minutes"
+        },
+        "abandonedCartConversionStats": {
+            "cardLabel": "Abandoned Cart Conversion",
+            "orders": "Recovered Orders",
+            "turnover": "Conversion Rate"
+        },
+        "promotionUpdate": {
+            "list": "Promotion List",
+            "placeholderPromotion": "Select promotion",
+            "promotionDiscount": "Discount %",
+            "placeholderPromotionDiscount": "Update discount here",
+            "discountUpdatedSuccess": "Discount updated successfully",
+            "discountUpdateError": "Discount not updated",
+            "updateButton": "Update discount",
+            "title": "Promotion discount value update instructions",
+            "guideStep1": "When promotion is used the discount can no longer be modified, So here you can update the discount value only.",
+            "guideStep2": "Select the default promotion 'Abandoned cart promotion'.",
+            "guideStep3": "Enter the discount value in numeric or decimal format."
+        },
+        "knowledgeBasePluginConfig": {
+            "buttonLabel": "Plugin Guide and FAQ's"
+        }
+    }
+}

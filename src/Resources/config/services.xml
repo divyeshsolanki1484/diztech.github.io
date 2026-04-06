@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <imports>
+        <import resource="../service/pagelet.xml"/>
+        <import resource="../service/controller.xml"/>
+        <import resource="../service/subscriber.xml"/>
+    </imports>
+
+    <services>
+        <!-- Entity Definition -->
+        <service id="Zeobv\AbandonedCart\Checkout\AbandonedCart\AbandonedCartDefinition">
+            <tag name="shopware.entity.definition" entity="zeo_abandoned_cart" />
+        </service>
+
+        <service id="Zeobv\AbandonedCart\Core\Framework\DataAbstractionLayer\FieldSerializer\IdNullableFieldSerializer">
+            <argument type="service" id="validator" />
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <tag name="shopware.field_serializer"/>
+        </service>
+
+
+        <!-- Scheduler/Command Definition -->
+        <service id="Zeobv\AbandonedCart\ScheduledTasks\Tasks\AbandonedCart\CollectTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Zeobv\AbandonedCart\ScheduledTasks\Handlers\AbandonedCart\CollectTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument>%kernel.environment%</argument>
+            <argument type="service" id="zeo_abandoned_cart.repository" />
+            <argument type="service" id="sales_channel.repository" />
+            <argument type="service" id="Zeobv\AbandonedCart\Service\AbandonedCartService" />
+            <argument type="service" id="Zeobv\AbandonedCart\Service\ConfigService" />
+            <argument type="service" id="logger" />
+
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="Zeobv\AbandonedCart\Command\AbandonedCart\Collect">
+            <argument type="service" id="Zeobv\AbandonedCart\ScheduledTasks\Handlers\AbandonedCart\CollectTaskHandler" />
+            <tag name="console.command"/>
+        </service>
+
+        <!-- Service Definition -->
+        <service id="Zeobv\AbandonedCart\Service\ConfigService">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+        </service>
+
+        <service id="Zeobv\AbandonedCart\Service\CartService">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\CartPersister" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\CartCalculator"/>
+        </service>
+
+        <service id="Zeobv\AbandonedCart\Service\AbandonedCartService">
+            <argument type="service" id="Zeobv\AbandonedCart\Service\ConfigService" />
+            <argument type="service" id="zeo_abandoned_cart.repository" />
+            <argument type="service" id="mail_template.repository" />
+            <argument type="service" id="customer.repository" />
+            <argument type="service" id="Shopware\Core\Content\Mail\Service\MailService" />
+            <argument type="service" id="Zeobv\AbandonedCart\Service\CartService" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextPersister" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\CachedSalesChannelContextFactory"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="Shopware\Core\Checkout\Promotion\Cart\PromotionItemBuilder"/>
+            <argument type="service" id="promotion_individual_code.repository"/>
+            <argument type="service" id="Zeobv\AbandonedCart\Service\PromotionService"/>
+        </service>
+
+        <service id="Zeobv\AbandonedCart\Service\PromotionService">
+            <argument type="service" id="Zeobv\AbandonedCart\Service\ConfigService" />
+            <argument type="service" id="promotion_individual_code.repository"/>
+        </service>
+    </services>
+</container>

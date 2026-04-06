@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/page/account/index.html.twig' %}
+
+{% block page_account_overview_newsletter %}
+    {{ parent() }}
+
+    <div class="account-overview-card account-overview-abandoned-cart">
+        <div class="card">
+            <div class="card-body">
+                {% block page_account_overview_zeobv_abandoned_cart_title %}
+                    <h2 class="card-title">
+                        {{ "zeobv-abandoned-cart.account.abandonedCartTitle"|trans|sw_sanitize }}
+                    </h2>
+                {% endblock %}
+
+                {% block page_account_overview_zeobv_abandoned_cart_content %}
+                    <div class="js-abandoned-cart-wrapper">
+                        {% sw_include "@ZeobvAbandonedCart/storefront/page/account/abandoned-cart.html.twig" with { "abandonedCartAccountPagelet": page.getExtension('zeobvAbandonedCartAccountPagelet') } %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

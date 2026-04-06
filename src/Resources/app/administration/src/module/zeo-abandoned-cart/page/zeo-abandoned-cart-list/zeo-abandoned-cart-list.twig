@@ -1,0 +1,104 @@
+{% block zeo_abandoned_cart_list %}
+    <sw-page class="zeo-abandoned-cart-list">
+
+        {% block zeo_abandoned_cart_list_smart_bar_header %}
+            <template #smart-bar-header>
+                {% block zeo_abandoned_cart_list_smart_bar_header_title %}
+                    <h2>
+                        {% block zeo_abandoned_cart_list_smart_bar_header_title_text %}
+                            {{ $tc('zeo-abandoned-cart.general.listTitle') }}
+                        {% endblock %}
+
+                        {% block zeo_abandoned_cart_list_smart_bar_header_amount %}
+                            <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                                ({{ total }})
+                            </span>
+                        {% endblock %}
+                    </h2>
+                {% endblock %}
+            </template>
+        {% endblock %}
+
+        <template #content>
+            {% block zeo_abandoned_cart_list_content %}
+                <div class="zeo-abandoned-cart-list__content">
+                    {% block zeo_abandoned_cart_list_grid %}
+                        <sw-entity-listing 
+                            ref="zeoEntityGrid"
+                            v-if="entities"
+                            class="zeo-abandoned-cart-list-grid"
+                            :items="entities"
+                            :columns="columns"
+                            :repository="repository"
+                            :showSelection="true"
+                            :isLoading="isLoading"
+                            @update-records="updateTotal">
+                            <template #column-lastMailSendAt="{ item }">
+                                <span v-if="item.lastMailSendAt">
+                                    {{ dateFilter(item.lastMailSendAt) }}
+                                </span>
+
+                                <span v-else>
+                                   {{ $tc('zeo-abandoned-cart.list.placeholders.lastMailSendAtPlaceholder') }}
+                                </span>
+                            </template>
+
+                            <template #column-salesChannelDomain="{ item }">
+                                {{ item.salesChannelDomain ? item.salesChannelDomain.url : '-' }}
+                            </template>
+
+                            <template #column-salesChannel="{ item }">
+                                {{ item.salesChannel ? item.salesChannel.name : '-' }}
+                            </template>
+
+                            <template #column-createdAt="{ item }">
+                                {{ dateFilter(item.createdAt) }}
+                            </template>
+
+                            <template #column-updatedAt="{ item }">
+                                {{ dateFilter(item.updatedAt) }}
+                            </template>
+
+                            <template #more-actions="{ item }">
+                                <sw-context-menu-item 
+                                    @click="onOpenDetailModel(item)"
+                                    :disabled="!item"
+                                    class="sw-entity-listing__context-menu-edit-open-details"
+                                    variant="primary">
+                                    {{ $tc('zeo-abandoned-cart.contextActions.openDetails') }}
+                                </sw-context-menu-item>
+                            </template>
+                        </sw-entity-listing>
+                    {% endblock %}
+
+                    {% block zeo_abandoned_cart_details_modal %}
+                        <zeo-abandoned-cart-details-modal 
+                            v-if="abandonedCartDetailsModalOpened"
+                            :abandoned-cart="abandonedCartDetailCart"
+                            :isLoading="isLoading"
+                            :onClose="onCloseAbandonedCartDetailsModal"
+                        ></zeo-abandoned-cart-details-modal>
+                    {% endblock %}
+
+                    {% block zeo_abandoned_cart_list_empty_state %}
+                        <sw-empty-state v-if="!isLoading && !total" :title="$tc('zeo-abandoned-cart.list.messageEmpty')"></sw-empty-state>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </template>
+
+        {% block zeo_abandoned_cart_list_sidebar %}
+            <template #sidebar>
+                <sw-sidebar>
+                    {% block zeo_abandoned_cart_list_sidebar_refresh %}
+                        <sw-sidebar-item
+                            icon="regular-undo"
+                            :title="$tc('zeo-abandoned-cart.general.titleSidebarItemRefresh')"
+                            @click="onRefresh">
+                        </sw-sidebar-item>
+                    {% endblock %}
+                </sw-sidebar>
+            </template>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

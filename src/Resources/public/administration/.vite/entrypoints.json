@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/zeobvabandonedcart/administration/",
+  "entryPoints": {
+    "zeobv-abandoned-cart": {
+      "css": [
+        "/bundles/zeobvabandonedcart/administration/assets/zeobv-abandoned-cart-DEzrfZuD.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/zeobvabandonedcart/administration/assets/zeobv-abandoned-cart-DQRL7GNj.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}

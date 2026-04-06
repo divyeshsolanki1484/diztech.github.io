@@ -1,0 +1,71 @@
+{
+    "zeo-abandoned-cart": {
+        "general": {
+            "mainMenuItemLabel": "Verlassene Warenkorb",
+            "mainMenuItemDescription": "",
+            "listTitle": "Verlassene Warenkorbüberblick",
+            "titleSidebarItemRefresh": "Aktualisierung"
+        },
+        "list": {
+            "messageEmpty": "Keine Verlassene Warenkörbe gefunden",
+            "column": {
+                "email": "E-Mail",
+                "lastMailSendAt": "Erinnerung gesendet",
+                "salesChannelDomain": "Shop",
+                "salesChannel": "Sales channel",
+                "createdAt": "Erstellt am",
+                "updatedAt": "Letzte Interaktion"
+            },
+            "placeholders": {
+                "lastMailSendAtPlaceholder": "Anhängig..."
+            }
+        },
+        "detailsModal": {
+            "modalTitle": "Abandoned cart details",
+            "columnProductName": "Name",
+            "columnQuantity": "Menge",
+            "columnUnitPriceGross": "Stückpreis",
+            "columnTotalPriceGross": "Gesamtpreis",
+            "contextMenuShowProduct": "Zum Produkt",
+            "contextMenuUnavailable": "Nicht unterstützter Typ"
+        },
+        "contextActions": {
+            "openDetails": "Details öffnen"
+        },
+        "schedule-grid": {
+            "title": "Anleitung zum Zeitplan",
+            "guideStep1": "Fügen Sie eine neue Zeile über die Schaltfläche \"Zeile hinzufügen\" hinzu",
+            "guideStep2": "Geben Sie einen Wert (in Minuten) in der Spalte \"Verzögerung\" ein",
+            "guideStep3": "Wählen Sie eine Mailvorlage aus, die verwendet werden soll. Stellen Sie sicher, dass diese Mailvorlage gültiges HTML und keine unzulässigen Variablen enthält.",
+            "guideStep4": "Wiederholen Sie die Schritte 1 bis 4.",
+            "instructions": "Die Zeitplan-Tabelle wird verwendet, um zu konfigurieren, wann und welche Mail für den abgebrochenen Warenkorb gesendet werden soll. Der Zeitplan arbeitet von oben nach unten, was bedeutet, dass die erste Verzögerung die anfängliche Verzögerung ist, die zum Senden der Mail für den verlassenen Warenkorb verwendet wird. Die folgenden Verzögerungen werden von der Zeit an gerechnet, zu der die letzte Mail versendet wurde. Sie können eine oder mehrere Zeilen löschen, indem Sie das Kontrollkästchen aktivieren. Es wird eine Schaltfläche \"Löschen\" angezeigt, mit der Sie die Auswahl löschen können. Ihre Änderungen werden dauerhaft, sobald Sie auf die Schaltfläche \"Speichern\" oben rechts klicken.",
+            "delayLabel":  "Verzögerung (vor der ersten/nach der letzten Mail in Minuten)",
+            "templateLabel": "Mail-Vorlage",
+            "buttonAddRow": "Zeile hinzufügen",
+            "contextMenuShowMailTemplate": "Vorlage anzeigen",
+            "contextDisabled": "Doppelklick auf die Zeile zum Bearbeiten",
+            "delaySuffix": "Minuten"
+        },
+        "abandonedCartConversionStats": {
+            "cardLabel": "Konvertierung abgebrochener Warenkörbe",
+            "orders": "Wiederhergestellte Bestellungen",
+            "turnover": "Konversionsrate"
+        },
+        "promotionUpdate": {
+            "list": "Aktionsliste",
+            "placeholderPromotion": "Aktion auswählen",
+            "promotionDiscount": "Rabatt %",
+            "placeholderPromotionDiscount": "Rabatt hier aktualisieren",
+            "discountUpdatedSuccess": "Rabatt erfolgreich aktualisiert",
+            "discountUpdateError": "Rabatt nicht aktualisiert",
+            "updateButton": "Update-Rabatt",
+            "title": "Anweisungen zur Aktualisierung des Aktionsrabattwerts",
+            "guideStep1": "Wenn das Angebot genutzt wird, kann der Rabatt nicht mehr geändert werden. Hier können Sie also nur den Wert des Rabatts aktualisieren.",
+            "guideStep2": "Wählen Sie die Standardaktion 'Werbung für verlassene Einkaufswagen'.",
+            "guideStep3": "Geben Sie den Wert des Rabatts in numerischer oder dezimaler Form ein."
+        },
+        "knowledgeBasePluginConfig": {
+            "buttonLabel": "Plugin-Anleitung und FAQ's"
+        }
+    }
+}

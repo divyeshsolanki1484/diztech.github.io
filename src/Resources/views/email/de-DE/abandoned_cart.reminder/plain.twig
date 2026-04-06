@@ -1,0 +1,14 @@
+Zeit ist knapp!
+
+Wir haben bemerkt, dass Sie keine Zeit hatten, Ihren Kauf abzuschließen und Ihren Warenkorb einfach in der Ecke unseres Ladens gelassen haben. Keine Sorge, das passiert den Besten von uns!
+
+Verwenden Sie einfach den folgenden Link, um Ihren Kauf abzuschließen:
+{{ url('frontend.zeo.abandonedcart.recover', {id: zeoAbandonedCart.id}) }}
+
+Artikel warten auf Sie: 
+{% for lineItem in zeoAbandonedCart.lineItems %}
+{% set nestedItem = lineItem %}
+{% block lineItem %}
+- {{ nestedItem.label|u.wordwrap(80) }}
+{% endblock %}
+{% endfor %}

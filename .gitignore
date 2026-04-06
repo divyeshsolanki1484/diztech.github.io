@@ -1,0 +1,5 @@
+vendor
+phpstan.neon
+.idea
+tests/e2e/cypress/videos
+diztech.github.io

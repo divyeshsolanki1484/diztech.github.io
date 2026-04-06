@@ -1,0 +1,13 @@
+{
+    "zeobv-abandoned-cart": {
+        "account": {
+            "abandonedCartTitle": "Winkelwagen reminders",
+            "reminderSettings": "Ja, ik wil graag herinneringen blijven ontvangen over mijn winkelwagen. (Ik kan me op elk moment uitschrijven.)"
+        },
+        "subscription": {
+            "subscriptionPersistedSuccess": "Abonnement op verlaten winkelwagen herinneringen is succesvol bijgewerkt.",
+            "subscriptionRevokeSuccess": "Je bent uitgeschreven voor de winkelwagenherinneringen.",
+            "subscriptionConfirmationFailed": "Abonnement op verlaten winkelwagenherinneringen kon niet worden bijgewerkt."
+        }
+    }
+}

@@ -1,0 +1,14 @@
+We kunnen hem niet voor lang bewaren
+
+We hebben gemerkt dat je geen tijd had om je aankoop af te ronden en je winkelwagentje in de hoek van onze winkel hebt laten staan. Geen zorgen, dit overkomt de besten onder ons!
+
+Gebruik gewoon de volgende link om je aankoop af te ronden:
+{{ url('frontend.zeo.abandonedcart.recover', {id: zeoAbandonedCart.id}) }}
+
+Items die op u wachten: 
+{% for lineItem in zeoAbandonedCart.lineItems %}
+{% set nestedItem = lineItem %}
+{% block lineItem %}
+- {{ nestedItem.label|u.wordwrap(80) }}
+{% endblock %}
+{% endfor %}

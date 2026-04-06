@@ -1,0 +1,13 @@
+{
+    "zeobv-abandoned-cart": {
+        "account": {
+            "abandonedCartTitle": "Erinnerungen an verlassene Einkaufswagen",
+            "reminderSettings": "Ja, ich möchte weiterhin Benachrichtigungen über meinen Warenkorb erhalten. (Ich kann mich jederzeit wieder abmelden.)"
+        },
+        "subscription": {
+            "subscriptionPersistedSuccess": "Das Abonnement für Erinnerungen an abgebrochene Warenkörbe wurde erfolgreich aktualisiert.",
+            "subscriptionRevokeSuccess": "Sie wurden von abandoned cart reminders abgemeldet.",
+            "subscriptionConfirmationFailed": "Das Abonnement für Erinnerungen an abgebrochene Warenkörbe konnte nicht aktualisiert werden."
+        }
+    }
+}

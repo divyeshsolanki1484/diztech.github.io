@@ -1,0 +1,28 @@
+@import '~scss/variables';
+
+.sw-dashboard-index {
+    &__abandoned-cart-conversion {
+        &-stats {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid $color-gray-300;
+        }
+
+        &-single-stat {
+            display: flex;
+            margin-right: 40px;
+
+            &-number-type {
+                font-size: $font-size-l;
+                color: $color-gray-800;
+                margin-top: 10px;
+                margin-right: 10px;
+            }
+
+            &-number-value {
+                font-size: 45px;
+            }
+        }
+    }
+}

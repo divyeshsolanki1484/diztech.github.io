@@ -1,0 +1,108 @@
+{% block sw_dashboard_index_content_info_grid %}
+    {% parent %}
+
+    <template v-if="zeobvAbandonedCartOrder.length > 0">
+        {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_intro_headline_title %}
+            <div class="sw-dashboard-statistics__card-headline">
+                <h1>{{ $tc('zeo-abandoned-cart.abandonedCartConversionStats.cardLabel') }}</h1>
+            </div>
+        {% endblock %}
+
+        <sw-card class="sw-dashboard-index__abandoned-cart-conversion">
+            {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_intro_stats_today %}
+                <div class="sw-dashboard-index__abandoned-cart-conversion">
+                    {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content %}
+                        <div class="sw-dashboard-index__abandoned-cart-conversion-stats">
+                            {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_single_count %}
+                                <div class="sw-dashboard-index__abandoned-cart-conversion-single-stat">
+                                    <span class="sw-dashboard-index__abandoned-cart-conversion-single-stat-number-type">
+                                        {{ $tc('zeo-abandoned-cart.abandonedCartConversionStats.orders') }}
+                                    </span>
+
+                                    <span class="sw-dashboard-index__abandoned-cart-conversion-single-stat-number-value">
+                                        {{ totalOrderCount }}
+                                    </span>
+                                </div>
+                            {% endblock %}
+
+                            {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_single_sum %}
+                                <div class="sw-dashboard-index__abandoned-cart-conversion-single-stat">
+                                    <span class="sw-dashboard-index__abandoned-cart-conversion-single-stat-number-type">
+                                        {{ $tc('zeo-abandoned-cart.abandonedCartConversionStats.turnover') }}
+                                    </span>
+                                    <span class="sw-dashboard-index__abandoned-cart-conversion-single-stat-number-value">
+                                        {{ zeobvAbandonedCartRatio }}%
+                                    </span>
+                                </div>
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+
+            {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_grid %}
+                <template #grid>
+                    <sw-entity-listing
+                        :sort-by="zeobvAbandonedCartConversionSortBy"
+                        :sort-direction="zeobvAbandonedCartConversionSortDirection"
+                        :repository="orderRepository"
+                        :items="zeobvAbandonedCartOrder"
+                        :columns="zeobvAbandonedCartGridColumns"
+                        :show-selection="false"
+                        :allow-column-edit="false"
+                        :full-page="false"
+                    >
+                        {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_grid_created_at %}
+                            <template
+                                #column-orderDateTime="{ item }"
+                            >
+                                {{ dateFilter(item.orderDateTime) }}
+                            </template>
+                        {% endblock %}
+
+                        {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_grid_first_name %}
+                            <template
+                                #column-orderCustomer.firstName="{ item }"
+                            >
+                                <router-link
+                                    :to="{ name: 'sw.order.detail', params: { id: item.id } }"
+                                    class="sw-data-grid__cell-value"
+                                >
+                                    {{ item.orderCustomer.firstName }} {{ item.orderCustomer.lastName }}
+                                </router-link>
+                            </template>
+                        {% endblock %}
+
+                        {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_grid_state %}
+                            <template
+                                #column-stateMachineState.name="{ item }"
+                            >
+                                <sw-label
+                                    :variant="getVariantFromOrderState(item)"
+                                    appearance="pill"
+                                >
+                                    {{ item.stateMachineState.translated.name }}
+                                </sw-label>
+                            </template>
+                        {% endblock %}
+
+                        {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_grid_actions %}
+                            <template
+                                #actions="{ item }"
+                            >
+                                {% block sw_dashboard_index_zeobv_abandoned_cart_conversion_order_content_grid_actions_view %}
+                                    <sw-context-menu-item
+                                        class="sw-order-list__order-view-action"
+                                        :router-link="{ name: 'sw.order.detail', params: { id: item.id } }"
+                                    >
+                                        {{ $tc('sw-order.list.contextMenuView') }}
+                                    </sw-context-menu-item>
+                                {% endblock %}
+                            </template>
+                        {% endblock %}
+                    </sw-entity-listing>
+                </template>
+            {% endblock %}
+        </sw-card>
+    </template>
+{% endblock %}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/shopware/platform/src/Core/System/SystemConfig/Schema/config.xsd">
+    
+    <card>
+        <component name="config-button-link">
+            <name>knowledgeBasePluginConfig</name>
+        </component>
+    </card>
+    
+    <card>
+        <title>Abandoned Cart Settings</title>
+        <title lang="de-DE">Abandoned Cart Einstellungen</title>
+        <title lang="nl-NL">Abandoned Cart Instellingen</title>
+
+        <input-field type="bool">
+            <name>active</name>
+            <label>Active</label>
+            <label lang="de-DE">Aktiviert</label>
+            <label lang="nl-NL">Geactiveerd</label>
+        </input-field>
+
+        <input-field type="bool">
+            <name>isCartAnonymous</name>
+            <label>Cart recovery is anonymous</label>
+            <label lang="de-DE">Die Wiederherstellung des Warenkorbs ist anonym</label>
+            <label lang="nl-NL">Winkelwagenherstel is anoniem</label>
+        </input-field>
+
+        <input-field type="bool">
+            <name>allowGuestEmails</name>
+            <label>Send emails to guest customers</label>
+            <label lang="de-DE">E-Mails an Gastkunden senden</label>
+            <label lang="nl-NL">E-mails naar gastklanten sturen</label>
+            <helpText>Enable to send abandoned cart emails to guest customers (customers who checked out without creating an account)</helpText>
+            <helpText lang="de-DE">Aktivieren, um E-Mails für verlassene Warenkörbe an Gastkunden zu senden (Kunden, die ohne Kontoerstellung eingekauft haben)</helpText>
+            <helpText lang="nl-NL">Inschakelen om verlaten winkelwagen e-mails naar gastklanten te sturen (klanten die hebben afgerekend zonder account aan te maken)</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>mailSendDelay</name>
+            <label>Time until first reminder gets triggered in HOURS. (Fallback in case of empty schedule)</label>
+            <label lang="de-DE">Zeit bis zum Auslösen der ersten Erinnerung in STUNDEN (Fallback bei leerem Zeitplan)</label>
+            <label lang="nl-NL">Tijd tot de eerste herinnering wordt geactiveerd in UREN. (Terugval bij leeg tijdschema)</label>
+            <helpText>The mail send delay is only used when no notification schedule is configured. This configuration option is deprecated and will be removed in the future.</helpText>
+            <helpText lang="de-DE">Die Mail-Sendeverzögerung wird nur verwendet, wenn kein Benachrichtigungszeitplan konfiguriert ist. Diese Konfigurationsoption ist veraltet und wird in Zukunft entfernt werden.</helpText>
+            <helpText lang="nl-NL">De vertraging voor het verzenden van mail wordt alleen gebruikt als er geen notificatie schema is geconfigureerd. Deze configuratieoptie is verouderd en zal in de toekomst worden verwijderd.</helpText>
+            <placeholder>1</placeholder>
+        </input-field>
+
+        <input-field type="int">
+            <name>abandonedCartDecay</name>
+            <label>Abandoned Cart decay time (Hours)</label>
+            <label lang="de-DE">Verfallszeit des verlassenen Warenkorbs (Stunden)</label>
+            <label lang="nl-NL">Verlaten winkelwagen vervaltijd (uren)</label>
+            <placeholder>24</placeholder>
+        </input-field>
+
+        <input-field type="int">
+            <name>notificationBatchSize</name>
+            <label>Max number of notifications to be send out per processing cycle</label>
+            <label lang="de-DE">Maximale Anzahl der pro Verarbeitungszyklus zu versendenden Benachrichtigungen</label>
+            <label lang="nl-NL">Max. aantal kennisgevingen dat per verwerkingscyclus kan worden verzonden</label>
+            <helpText>Set the max number of mails to be sent out per processing run to avoid your mail server marking the mails as spam.</helpText>
+            <helpText lang="de-DE">Legen Sie die maximale Anzahl der pro Verarbeitungslauf zu versendenden E-Mails fest, um zu vermeiden, dass Ihr Mailserver die E-Mails als Spam markiert.</helpText>
+            <helpText lang="nl-NL">Stel het maximum aantal mails in dat per verwerking mag worden verzonden om te voorkomen dat uw mailserver de mails als spam markeert.</helpText>
+            <defaultValue>30</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>metricMailsSent</name>
+            <label>Abandoned Cart Mails Sent</label>
+            <label lang="de-DE">Abgebrochene Warenkörbe Mails gesendet</label>
+            <label lang="nl-NL">Verlaten winkelwagenmails verzonden</label>
+            <placeholder>0</placeholder>
+            <disabled>true</disabled>
+        </input-field>
+
+        <input-field type="text">
+            <name>abandonedCartCCEmails</name>
+            <label>Abandoned Cart Mails CC</label>
+            <label lang="de-DE">Abgebrochene Einkaufswagen-Mails CC</label>
+            <label lang="nl-NL">Verlaten winkelwagen mails CC</label>
+        </input-field>
+
+    </card>
+
+    <card>
+        <title>Default promotion discount value update</title>
+        <title lang="de-DE">Standardwert für Aktionsrabatt aktualisieren</title>
+        <title lang="nl-NL">Standaard promotiekortingswaarde bijwerken</title>
+
+        <input-field type="bool">
+            <name>usePromotionsAbandonedCart</name>
+            <label>Use promotions for Abandoned cart</label>
+            <label lang="de-DE">Verwenden Sie Promotionen für Abandoned Cart</label>
+            <label lang="nl-NL">Gebruik promoties voor achtergelaten wagens</label>
+        </input-field>
+
+        <component name="sw-entity-single-select">
+            <name>abandonedCartPromotionId</name>
+            <entity>promotion</entity>
+            <label>Abandoned Cart Promotion</label>
+            <label lang="de-DE">Abandoned Cart Promotion</label>
+            <label lang="nl-NL">Verlaten winkelwagen promotie</label>
+            <defaultValue>fe5f4e10cd1a4f6e9710207638c0c9ec</defaultValue>
+        </component>
+
+        <component name="sw-entity-multi-id-select">
+            <name>excludedCustomerGroups</name>
+            <entity>customer_group</entity>
+            <label>Excluded Customer groups from promotion</label>
+            <label lang="de-DE">Von der Förderung ausgeschlossene Kundengruppen</label>
+            <label lang="nl-NL">Klantengroepen uitgesloten van promotie</label>
+        </component>
+    </card>
+
+    <card>
+        <title>Time schedule Settings</title>
+        <title lang="de-DE">Zeitplan Einstellungen</title>
+        <title lang="nl-NL">Tijdsplanning Instellingen</title>
+
+        <input-field>
+            <name>lastRunTimestamp</name>
+            <label>Abandoned cart processor last run</label>
+            <label lang="de-DE">Abgebrochener Warenkorb-Prozessor letzter Lauf</label>
+            <label lang="nl-NL">Abandoned cart processor laatste run</label>
+            <disabled>true</disabled>
+            <default>-</default>
+        </input-field>
+
+        <component name="zeobv-abandoned-cart-schedule-grid">
+            <name>schedule</name>
+        </component>
+    </card>
+</config>

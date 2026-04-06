@@ -1,0 +1,71 @@
+{
+    "zeo-abandoned-cart": {
+        "general": {
+            "mainMenuItemLabel": "Abandoned carts",
+            "mainMenuItemDescription": "",
+            "listTitle": "Abandoned cart overzicht",
+            "titleSidebarItemRefresh": "Verversen"
+        },
+        "list": {
+            "messageEmpty": "Geen abandoned carts gevonden",
+            "column": {
+                "email": "E-mail",
+                "lastMailSendAt": "Laatst verstuurd",
+                "salesChannelDomain": "Shop",
+                "salesChannel": "Sales channel",
+                "createdAt": "Aangemaakt op",
+                "updatedAt": "Laatste interactie"
+            },
+            "placeholders": {
+                "lastMailSendAtPlaceholder": "In afwachting..."
+            }
+        },
+        "detailsModal": {
+            "modalTitle": "Abandoned cart details",
+            "columnProductName": "Naam",
+            "columnQuantity": "Aantal",
+            "columnUnitPriceGross": "Stuk prijs",
+            "columnTotalPriceGross": "Totaal prijs",
+            "contextMenuShowProduct": "Naar product",
+            "contextMenuUnavailable": "Type niet ondersteund"
+        },
+        "contextActions": {
+            "openDetails": "Open details"
+        },
+        "schedule-grid": {
+            "title": "Tijdschema instructies",
+            "guideStep1": "Voeg een nieuwe rij toe met behulp van de \"Rij toevoegen\" knop",
+            "guideStep2": "Voer een waarde in (in minuten) in de vertragingskolom.",
+            "guideStep3": "Kies een mailsjabloon om te gebruiken, wees er zeker van dat dit mailsjabloon geldige HTML bevat en geen illegale variabelen.",
+            "guideStep4": "Herhaal stap 1 tot en met 4.",
+            "instructions": "De tijdschema tabel wordt gebruikt om te configureren wanneer en welke mail verstuurd moet worden voor de verlaten winkelwagen. Het schema werkt van boven naar beneden wat betekent dat de eerste vertraging de initiële vertraging zal zijn die gebruikt moet worden om de verlaten winkelwagen mail te versturen. De volgende vertragingen zullen worden getimed vanaf het moment dat de laatste mail werd verstuurd. U kunt één of meerdere rijen verwijderen door het selectievakje aan te vinken. Een knop \"Verwijderen\" zal verschijnen waarmee u de selectie kunt verwijderen. Uw wijzigingen zullen permanent zijn zodra u op de knop \"Opslaan\" rechtsboven klikt",
+            "delayLabel":  "Vertraging (voor initiële/na vorige mail in minuten)",
+            "templateLabel": "Mail sjabloon",
+            "ButtonAddRow": "Rij toevoegen",
+            "contextMenuShowMailTemplate": "Bekijk sjabloon",
+            "contextDisabled": "Dubbelklik op de rij om te bewerken.",
+            "delaySuffix": "minuten"
+        },
+        "abandonedCartConversionStats": {
+            "cardLabel": "Conversie van verlaten winkelwagen",
+            "orders": "Bestellingen vanuit Abandoned Carts",
+            "turnover": "Conversieratio"
+        },
+        "promotionUpdate": {
+            "list": "Promotie lijst",
+            "placeholderPromotion": "Selecteer promotie",
+            "promotionDiscount": "Korting %",
+            "placeholderPromotionDiscount": "Update korting hier",
+            "discountUpdatedSuccess": "Korting succesvol bijgewerkt",
+            "discountUpdateError": "Korting niet bijgewerkt",
+            "updateButton": "Update korting",
+            "title": "Instructies voor het bijwerken van promotiekortingen",
+            "guideStep1": "Als de promotie is gebruikt, kan de korting niet meer worden aangepast, dus hier kun je alleen de kortingswaarde bijwerken.",
+            "guideStep2": "Selecteer de standaardpromotie 'Verlaten winkelwagen promotie'.",
+            "guideStep3": "Voer de kortingswaarde in numeriek of decimaal formaat in."
+        },
+        "knowledgeBasePluginConfig": {
+            "buttonLabel": "Plugin-gids en veelgestelde vragen"
+        }
+    }
+}

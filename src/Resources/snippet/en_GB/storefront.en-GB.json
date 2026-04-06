@@ -1,0 +1,13 @@
+{
+    "zeobv-abandoned-cart": {
+        "account": {
+            "abandonedCartTitle": "Cart reminders",
+            "reminderSettings": "Yes, I would like to continue receiving reminders about my shopping cart. (I may unsubscribe at any time.)"
+        },
+        "subscription": {
+            "subscriptionPersistedSuccess": "Subscription to abandoned cart reminders has been successfully updated.",
+            "subscriptionRevokeSuccess": "You have been unsubscribed from abandoned cart reminders.",
+            "subscriptionConfirmationFailed": "Subscription to abandoned cart reminders could not be updated."
+        }
+    }
+}
