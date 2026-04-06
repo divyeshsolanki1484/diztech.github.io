@@ -72,15 +72,15 @@ class AbandonedCartService {
         if (!$abandonedCart->getCustomer() instanceof CustomerEntity) {
             return false;
         }
-        
+
         // Check if guest emails are allowed
         $allowGuestEmails = $this->configService->getAllowGuestEmails($abandonedCart->getSalesChannel());
-        
+
         // Exclude guest customers unless explicitly allowed
         if ($abandonedCart->getCustomer()->getGuest() && !$allowGuestEmails) {
             return false;
         }
-        
+
         $customFields = $abandonedCart->getCustomer()->getCustomFields();
         return !is_array($customFields)
             || !key_exists(self::REMINDER_STATUS_FIELD_NAME, $customFields)
@@ -121,6 +121,7 @@ class AbandonedCartService {
         $mailTemplate = $this->getMailTemplate($abandonedCart, $context);
 
         if (is_null($mailTemplate) || is_null($mailTemplate->getTranslation('senderName'))) {
+            $this->router->setContext($originalRouterContext);
             return false;
         }
 
@@ -135,6 +136,7 @@ class AbandonedCartService {
         # Map information of customer to template
         $customer = $abandonedCart->getCustomer();
         if ($customer === null) {
+            $this->router->setContext($originalRouterContext);
             return false;
         }
         $recipientEmail = $abandonedCart->getEmail() ?: $customer->getEmail();
