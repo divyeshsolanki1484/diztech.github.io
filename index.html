@@ -5,177 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopware QA Reports — Diztech</title>
 <style>
-  :root { --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; --border: #334155; --accent: #3b82f6; --pass: #22c55e; --warn: #f59e0b; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
-
-  /* Header */
-  .header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
-  .logo { width: 56px; height: 56px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-  .logo svg { width: 32px; height: 32px; fill: white; }
-  .header h1 { font-size: 1.75rem; font-weight: 700; }
-  .header h1 span { color: var(--muted); font-weight: 400; }
-  .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; padding-left: 72px; }
-  .subtitle a { color: var(--accent); text-decoration: none; }
-  .subtitle a:hover { text-decoration: underline; }
-
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
-  .stat-card { background: var(--card); border-radius: 10px; padding: 1.25rem; text-align: center; border: 1px solid var(--border); }
-  .stat-card .num { font-size: 2rem; font-weight: 700; }
-  .stat-card .lbl { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
-
-  /* Table */
-  .report-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-  .report-table thead th {
-    padding: 1rem 1rem;
-    text-align: left;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-    background: rgba(30,41,59,0.8);
-  }
-  .report-table tbody td {
-    padding: 1rem 1rem;
-    font-size: 0.9rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-  }
-  .report-table tbody tr:last-child td { border-bottom: none; }
-  .report-table tbody tr:hover { background: rgba(59,130,246,0.04); }
-
-  .ext-name { font-weight: 600; color: #f1f5f9; }
-  .ext-version { font-size: 0.8rem; color: var(--muted); display: block; }
-  .type-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
-  .type-plugin { background: rgba(59,130,246,0.15); color: #60a5fa; }
-  .type-app { background: rgba(168,85,247,0.15); color: #c084fc; }
-  .date { color: var(--muted); font-size: 0.85rem; }
-  .score { font-weight: 600; }
-
-  .grade {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 7px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: white;
-  }
-  .grade-a { background: #22c55e; }
-  .grade-b { background: #3b82f6; }
-  .grade-c { background: #f59e0b; }
-
-  .view-link { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.85rem; margin-right: 0.5rem; }
-  .view-link:hover { text-decoration: underline; }
-  .view-link.fix { color: var(--pass); }
-
-  .compat { font-size: 0.8rem; font-weight: 600; }
-  .compat-ok { color: var(--pass); }
-  .compat-warn { color: var(--warn); }
-
-  .footer { text-align: center; margin-top: 3rem; color: var(--muted); font-size: 0.8rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-
-  @media (max-width: 768px) {
-    .container { padding: 1.5rem 1rem; }
-    .header h1 { font-size: 1.3rem; }
-    .subtitle { padding-left: 0; }
-    .report-table thead th, .report-table tbody td { padding: 0.6rem 0.5rem; font-size: 0.8rem; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-  }
+  :root{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--border:#334155;--accent:#3b82f6;--pass:#22c55e;--warn:#f59e0b;--fail:#ef4444}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .container{max-width:1100px;margin:0 auto;padding:3rem 2rem}
+  .header{display:flex;align-items:center;gap:1rem;margin-bottom:.5rem}
+  .logo{width:56px;height:56px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:12px;display:flex;align-items:center;justify-content:center}
+  .logo svg{width:32px;height:32px;fill:#fff}
+  .header h1{font-size:1.75rem;font-weight:700}
+  .header h1 span{color:var(--muted);font-weight:400}
+  .subtitle{color:var(--muted);font-size:.9rem;margin-bottom:2rem;padding-left:72px}
+  .subtitle a{color:var(--accent);text-decoration:none}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2.5rem}
+  .stat-card{background:var(--card);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid var(--border)}
+  .stat-card .num{font-size:2rem;font-weight:700}
+  .stat-card .lbl{font-size:.75rem;color:var(--muted);margin-top:.25rem;text-transform:uppercase;letter-spacing:.05em}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+  thead th{padding:1rem;text-align:left;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--border);background:rgba(30,41,59,.8)}
+  tbody td{padding:1rem;font-size:.9rem;border-bottom:1px solid var(--border);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(59,130,246,.04)}
+  .ext-name{font-weight:600;color:#f1f5f9}
+  .ext-ver{font-size:.8rem;color:var(--muted);display:block}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:600;text-transform:uppercase}
+  .badge-plugin{background:rgba(59,130,246,.15);color:#60a5fa}
+  .badge-app{background:rgba(168,85,247,.15);color:#c084fc}
+  .grade{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:7px;font-weight:700;font-size:.85rem;color:#fff}
+  .grade-a{background:#22c55e}.grade-b{background:#3b82f6}.grade-c{background:#f59e0b}.grade-d{background:#ef4444}
+  .compat-ok{color:var(--pass);font-weight:600;font-size:.8rem}
+  .compat-warn{color:var(--warn);font-weight:600;font-size:.8rem}
+  .link{color:var(--accent);text-decoration:none;font-weight:500;font-size:.85rem}
+  .link:hover{text-decoration:underline}
+  .date{color:var(--muted);font-size:.85rem}
+  .footer{text-align:center;margin-top:3rem;color:var(--muted);font-size:.8rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+  @media(max-width:768px){.container{padding:1.5rem 1rem}.stats{grid-template-columns:repeat(2,1fr)}thead th,tbody td{padding:.6rem .5rem;font-size:.8rem}}
 </style>
 </head>
 <body>
 <div class="container">
-
   <div class="header">
-    <div class="logo">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v2h-2v2h-2v-2h-2v-2h2v-2zm4-2h2v2h-2v-2zm0 4h2v4h-4v-2h2v-2z"/>
-      </svg>
-    </div>
+    <div class="logo"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v2h-2v2h-2v-2h-2v-2h2v-2zm4-2h2v2h-2v-2zm0 4h2v4h-4v-2h2v-2z"/></svg></div>
     <h1><span>&mdash;</span> Shopware QA Reports</h1>
   </div>
   <div class="subtitle">Quality audits for all Shopware 6 extensions &mdash; <a href="https://icreativetechnologies.com">iCreativeTechnologies</a></div>
-
-  <!-- Summary Stats -->
   <div class="stats">
-    <div class="stat-card"><div class="num" style="color:#60a5fa">3</div><div class="lbl">Extensions Audited</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--pass)">88</div><div class="lbl">Avg Score</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--pass)">280</div><div class="lbl">Total Checks</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--pass)">2</div><div class="lbl">Plugins</div></div>
-    <div class="stat-card"><div class="num" style="color:#c084fc">1</div><div class="lbl">Apps</div></div>
+    <div class="stat-card"><div class="num" style="color:#60a5fa">7</div><div class="lbl">Extensions</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--pass)">95</div><div class="lbl">Avg Score</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--pass)">666</div><div class="lbl">Total Checks</div></div>
+    <div class="stat-card"><div class="num" style="color:#60a5fa">5</div><div class="lbl">Plugins</div></div>
+    <div class="stat-card"><div class="num" style="color:#c084fc">2</div><div class="lbl">Apps</div></div>
   </div>
-
-  <!-- Reports Table -->
-  <table class="report-table">
-    <thead>
-      <tr>
-        <th>Extension</th>
-        <th>Type</th>
-        <th>Date</th>
-        <th>Score</th>
-        <th>Grade</th>
-        <th>Code Compat</th>
-        <th>Reports</th>
-      </tr>
-    </thead>
+  <table>
+    <thead><tr>
+      <th>Extension</th><th>Type</th><th>Date</th><th>Score</th><th>Grade</th><th>Compat</th><th>Report</th>
+    </tr></thead>
     <tbody>
       <tr>
-        <td>
-          <span class="ext-name">ZeobvAbandonedCart</span>
-          <span class="ext-version">v3.0.5 &bull; 106 checks</span>
-        </td>
-        <td><span class="type-badge type-plugin">Plugin</span></td>
-        <td class="date">2026-04-06</td>
-        <td class="score">89 &rarr; 96</td>
+        <td><span class="ext-name">ZeobvAbandonedCart</span><span class="ext-ver">vunknown &bull; 106 checks</span></td>
+        <td><span class="badge badge-plugin">Plugin</span></td>
+        <td class="date">2026-04-07</td>
+        <td style="font-weight:600">97/100</td>
         <td><span class="grade grade-a">A</span></td>
-        <td><span class="compat compat-ok">OK</span></td>
-        <td>
-          <a class="view-link" href="reports/ZeobvAbandonedCart/audit-report.html">Report</a>
-        </td>
+        <td><span class="compat-ok">OK</span></td>
+        <td><a class="link" href="reports/ZeobvAbandonedCart/audit-report.html">View</a></td>
       </tr>
       <tr>
-        <td>
-          <span class="ext-name">ZeobvBundleProducts</span>
-          <span class="ext-version">v3.0.16 &bull; 106 checks</span>
-        </td>
-        <td><span class="type-badge type-plugin">Plugin</span></td>
+        <td><span class="ext-name">ZeobvBundleProducts</span><span class="ext-ver">v3.0.16 &bull; 106 checks</span></td>
+        <td><span class="badge badge-plugin">Plugin</span></td>
         <td class="date">2026-04-07</td>
-        <td class="score">85/100</td>
-        <td><span class="grade grade-b">B+</span></td>
-        <td><span class="compat compat-ok">OK</span></td>
-        <td>
-          <a class="view-link" href="reports/ZeobvBundleProducts/audit-report.html">Report</a>
-        </td>
+        <td style="font-weight:600">95/100</td>
+        <td><span class="grade grade-a">A</span></td>
+        <td><span class="compat-ok">OK</span></td>
+        <td><a class="link" href="reports/ZeobvBundleProducts/audit-report.html">View</a></td>
       </tr>
       <tr>
-        <td>
-          <span class="ext-name">ZeobvCountrySelect</span>
-          <span class="ext-version">v4.0.2 &bull; 68 checks</span>
-        </td>
-        <td><span class="type-badge type-app">App</span></td>
+        <td><span class="ext-name">ZeobvGetNotified</span><span class="ext-ver">v3.4.0 &bull; 106 checks</span></td>
+        <td><span class="badge badge-plugin">Plugin</span></td>
         <td class="date">2026-04-07</td>
-        <td class="score">82 &rarr; 97</td>
+        <td style="font-weight:600">95/100</td>
         <td><span class="grade grade-a">A</span></td>
-        <td><span class="compat compat-ok">OK</span></td>
-        <td>
-          <a class="view-link" href="reports/ZeobvCountrySelect/audit-report.html">Before</a>
-          <a class="view-link fix" href="reports/ZeobvCountrySelect/audit-report-after-fix.html">After</a>
-        </td>
+        <td><span class="compat-ok">OK</span></td>
+        <td><a class="link" href="reports/ZeobvGetNotified/audit-report.html">View</a></td>
+      </tr>
+      <tr>
+        <td><span class="ext-name">ZeobvUpselling</span><span class="ext-ver">v3.0.4 &bull; 106 checks</span></td>
+        <td><span class="badge badge-plugin">Plugin</span></td>
+        <td class="date">2026-04-07</td>
+        <td style="font-weight:600">94/100</td>
+        <td><span class="grade grade-a">A-</span></td>
+        <td><span class="compat-ok">OK</span></td>
+        <td><a class="link" href="reports/ZeobvUpselling/audit-report.html">View</a></td>
+      </tr>
+      <tr>
+        <td><span class="ext-name">zeobv-s6-best-practice-checkout</span><span class="ext-ver">v4.0.2 &bull; 106 checks</span></td>
+        <td><span class="badge badge-plugin">Plugin</span></td>
+        <td class="date">2026-04-07</td>
+        <td style="font-weight:600">93/100</td>
+        <td><span class="grade grade-a">A-</span></td>
+        <td><span class="compat-warn">WARN (1 missing classes)</span></td>
+        <td><a class="link" href="reports/zeobv-s6-best-practice-checkout/audit-report.html">View</a></td>
+      </tr>
+      <tr>
+        <td><span class="ext-name">ZeobvCountrySelect</span><span class="ext-ver">v4.0.2 &bull; 68 checks</span></td>
+        <td><span class="badge badge-app">App</span></td>
+        <td class="date">2026-04-07</td>
+        <td style="font-weight:600">98/100</td>
+        <td><span class="grade grade-a">A</span></td>
+        <td><span class="compat-ok">OK</span></td>
+        <td><a class="link" href="reports/ZeobvCountrySelect/audit-report.html">View</a></td>
+      </tr>
+      <tr>
+        <td><span class="ext-name">ZeobvPreparedCart</span><span class="ext-ver">v4.0.1 &bull; 68 checks</span></td>
+        <td><span class="badge badge-app">App</span></td>
+        <td class="date">2026-04-07</td>
+        <td style="font-weight:600">98/100</td>
+        <td><span class="grade grade-a">A</span></td>
+        <td><span class="compat-ok">OK</span></td>
+        <td><a class="link" href="reports/ZeobvPreparedCart/audit-report.html">View</a></td>
       </tr>
     </tbody>
   </table>
-
-  <div class="footer">
-    Generated by Diztech QA Audit &mdash; Shopware 6.7.5.1 &mdash; Last updated 2026-04-07
-  </div>
-
+  <div class="footer">Generated by Diztech QA Pipeline &mdash; Shopware 6.7.5.1 &mdash; Last updated 2026-04-07</div>
 </div>
 </body>
 </html>
