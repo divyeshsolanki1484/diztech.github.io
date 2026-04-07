@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Report — ZeobvUpselling</title>
+<style>
+  :root { --pass: #22c55e; --fail: #ef4444; --warn: #f59e0b; --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; --border: #334155; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #60a5fa; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.75rem; color: #93c5fd; }
+  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .score-hero { display: flex; align-items: center; gap: 2rem; background: var(--card); border-radius: 12px; padding: 2rem; margin: 1.5rem 0 2rem; border: 1px solid var(--border); }
+  .score-circle { width: 120px; height: 120px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; border: 4px solid #4ade80; }
+  .score-circle .number { font-size: 2.5rem; color: #4ade80; line-height: 1; }
+  .score-circle .label { font-size: 0.75rem; color: var(--muted); }
+  .grade-box { font-size: 3rem; font-weight: 800; color: #4ade80; line-height: 1; }
+  .grade-sub { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+  .score-bars { flex: 1; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 0.35rem; font-size: 0.8rem; }
+  .bar-label { width: 180px; text-align: right; padding-right: 10px; color: var(--muted); }
+  .bar-track { flex: 1; height: 14px; background: #334155; border-radius: 7px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 7px; }
+  .bar-fill.full { background: var(--pass); }
+  .bar-fill.high { background: #4ade80; }
+  .bar-fill.mid { background: var(--warn); }
+  .bar-value { width: 55px; text-align: right; font-weight: 600; font-size: 0.8rem; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.85rem; }
+  th { background: #1e293b; padding: 0.6rem 0.75rem; text-align: left; font-weight: 600; color: #93c5fd; border-bottom: 2px solid var(--border); }
+  td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: rgba(59,130,246,0.05); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+  .badge-pass { background: rgba(34,197,94,0.15); color: var(--pass); }
+  .badge-fail { background: rgba(239,68,68,0.15); color: var(--fail); }
+  .badge-warn { background: rgba(245,158,11,0.15); color: var(--warn); }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .summary-card { background: var(--card); border-radius: 8px; padding: 1.25rem; text-align: center; border: 1px solid var(--border); }
+  .summary-card .num { font-size: 2rem; font-weight: 700; }
+  .summary-card .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+  .issue-card { background: var(--card); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; border-left: 3px solid; }
+  .issue-card.fail { border-color: var(--fail); }
+  .issue-card.warn { border-color: var(--warn); }
+  .issue-card .issue-title { font-weight: 600; margin-bottom: 0.25rem; }
+  .issue-card .issue-file { font-size: 0.8rem; color: #60a5fa; font-family: monospace; }
+  .issue-card .issue-desc { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+  .grade-table td:first-child { font-weight: 700; }
+  .highlight { background: rgba(59,130,246,0.1); }
+  code { background: #334155; padding: 1px 5px; border-radius: 3px; font-size: 0.85em; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Shopware Extension Quality Audit</h1>
+<div class="meta">
+  <strong>Plugin:</strong> ZeobvUpselling &nbsp;|&nbsp;
+  <strong>Version:</strong> 3.0.4 &nbsp;|&nbsp;
+  <strong>Type:</strong> Plugin &nbsp;|&nbsp;
+  <strong>Date:</strong> 2026-04-07 &nbsp;|&nbsp;
+  <strong>Checks:</strong> 106
+</div>
+
+<div class="score-hero">
+  <div>
+    <div class="score-circle">
+      <span class="number">94</span>
+      <span class="label">/ 100</span>
+    </div>
+  </div>
+  <div>
+    <div class="grade-box">A-</div>
+    <div class="grade-sub">Very Good &mdash; minor warnings only</div>
+  </div>
+  <div class="score-bars">
+    <div class="bar-row"><span class="bar-label">Plugin Structure</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">12/12</span></div>
+    <div class="bar-row"><span class="bar-label">composer.json</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">10/10</span></div>
+    <div class="bar-row"><span class="bar-label">PHP Code Quality</span><div class="bar-track"><div class="bar-fill high" style="width:94%"></div></div><span class="bar-value">17/18</span></div>
+    <div class="bar-row"><span class="bar-label">Security</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">10/10</span></div>
+    <div class="bar-row"><span class="bar-label">Shopware Practices</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">14/14</span></div>
+    <div class="bar-row"><span class="bar-label">Database &amp; Migrations</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">10/10</span></div>
+    <div class="bar-row"><span class="bar-label">Templates &amp; Frontend</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">12/12</span></div>
+    <div class="bar-row"><span class="bar-label">Admin &amp; Assets</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">8/8</span></div>
+    <div class="bar-row"><span class="bar-label">Testing &amp; Tooling</span><div class="bar-track"><div class="bar-fill mid" style="width:50%"></div></div><span class="bar-value">3/6</span></div>
+    <div class="bar-row"><span class="bar-label">Documentation</span><div class="bar-track"><div class="bar-fill high" style="width:83%"></div></div><span class="bar-value">5/6</span></div>
+  </div>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-card"><div class="num" style="color:var(--pass)">100</div><div class="lbl">Passed</div></div>
+  <div class="summary-card"><div class="num" style="color:var(--fail)">1</div><div class="lbl">Failed</div></div>
+  <div class="summary-card"><div class="num" style="color:var(--warn)">5</div><div class="lbl">Warnings</div></div>
+  <div class="summary-card"><div class="num" style="color:#60a5fa">106</div><div class="lbl">Total Checks</div></div>
+</div>
+
+<h2>Issues Found</h2>
+
+<h3>Failures (1)</h3>
+
+<div class="issue-card fail">
+  <div class="issue-title"><span class="badge badge-fail">FAIL</span> &nbsp; Missing English CHANGELOG.md</div>
+  <div class="issue-file">CHANGELOG.md &nbsp;|&nbsp; CHANGELOG_de-DE.md</div>
+  <div class="issue-desc">Only a German changelog (<code>CHANGELOG_de-DE.md</code>) exists. An English <code>CHANGELOG.md</code> or <code>CHANGELOG_en-GB.md</code> is required for Shopware Store submission.</div>
+</div>
+
+<h3>Warnings (5)</h3>
+
+<div class="issue-card warn">
+  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; <code>console.error</code> in JavaScript</div>
+  <div class="issue-file">src/Resources/app/storefront/src/plugin/upselling.plugin.js</div>
+  <div class="issue-desc">Uses <code>console.error</code> for error reporting. Acceptable for debugging error conditions in production.</div>
+</div>
+
+<div class="issue-card warn">
+  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; phpstan.neon.dist not present</div>
+  <div class="issue-file">Project root</div>
+  <div class="issue-desc">No static analysis configuration. Recommended for CI/CD pipeline.</div>
+</div>
+
+<div class="issue-card warn">
+  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; phpunit.xml.dist not present</div>
+  <div class="issue-file">Project root</div>
+  <div class="issue-desc">No test configuration. Recommended for ensuring test coverage.</div>
+</div>
+
+<div class="issue-card warn">
+  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; Missing <code>.gitignore</code></div>
+  <div class="issue-file">Project root</div>
+  <div class="issue-desc">No <code>.gitignore</code> file found. Risk of committing vendor, node_modules, or build artifacts.</div>
+</div>
+
+<div class="issue-card warn">
+  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; Protected properties could be readonly</div>
+  <div class="issue-file">Multiple service and subscriber classes</div>
+  <div class="issue-desc">Constructor-injected dependencies use <code>protected</code> instead of <code>private readonly</code>. Works but less strict.</div>
+</div>
+
+<h2>Category Details</h2>
+
+<h3>1. Plugin Structure (12/12)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>1</td><td>Plugin bootstrap class exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>2</td><td>Bootstrap extends <code>Plugin</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>3</td><td>Namespace matches PSR-4 autoload</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>4</td><td><code>src/</code> directory follows conventions</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>5</td><td><code>Resources/config/</code> contains required XML</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>6</td><td><code>Resources/views/</code> properly organized</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>7</td><td>Entity classes in proper namespace</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>8</td><td>Subscriber classes in proper namespace</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>9</td><td>Controller classes in proper namespace</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>10</td><td>Service classes in proper namespace</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>11</td><td>Migration classes in <code>Migration/</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>12</td><td>Decorator classes properly structured</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>2. composer.json (10/10)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>13</td><td>Valid JSON syntax</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>14</td><td><code>name</code> field present</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>15</td><td><code>type</code> is <code>shopware-platform-plugin</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>16</td><td><code>license</code> field present</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>17</td><td><code>version</code> valid semver</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>18</td><td>PSR-4 autoload mapping correct</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>19</td><td><code>require</code> with valid constraints</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>20</td><td><code>extra.shopware-plugin-class</code> set</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>21</td><td><code>extra.label</code> with translations</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>22</td><td><code>extra.description</code> with translations</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>3. PHP Code Quality (17/18)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>23</td><td><code>declare(strict_types=1)</code> in all files</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>24</td><td>All parameters type-hinted</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>25</td><td>All methods have return types</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>26</td><td>All properties have type declarations</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>27</td><td>Proper visibility on all members</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>28</td><td>No unused imports</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>29</td><td>No dead/unreachable code</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>30</td><td>PSR-12 naming conventions</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>31</td><td>No mixed tab/space indentation</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>32</td><td>Constructor DI (no service locator)</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>33</td><td>Proper null checks before access</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>34</td><td>Proper error handling</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>35</td><td>No hardcoded magic numbers</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>36</td><td>Classes marked final where appropriate</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>37</td><td>Readonly properties where applicable</td><td><span class="badge badge-warn">WARN</span></td></tr>
+<tr><td>38</td><td>No deprecated PHP functions</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>39</td><td>Proper PHP 8.x features</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>40</td><td>No debug statements</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>4. Security (10/10)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>41</td><td>No hardcoded credentials</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>42</td><td>No hardcoded passwords</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>43</td><td>No SQL injection via concatenation</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>44</td><td>No XSS in Twig templates</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>45</td><td>CSRF protection on forms</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>46</td><td>Input validation on controllers</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>47</td><td>No sensitive data in logs</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>48</td><td>No dangerous functions (eval, exec)</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>49</td><td>No directory traversal risks</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>50</td><td>Parameterized queries for user data</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>5. Shopware Best Practices (14/14)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>51</td><td>Uses DAL repositories for CRUD</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>52</td><td>No deprecated Shopware API usage</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>53</td><td>EventSubscriberInterface implemented</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>54</td><td><code>getSubscribedEvents()</code> is static</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>55</td><td>Entity extends Entity properly</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>56</td><td>EntityDefinition has required methods</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>57</td><td>Proper decorator pattern</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>58</td><td>Optional decorators use on-invalid="ignore"</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>59</td><td>Message queue for async tasks</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>60</td><td>Controller extends proper base</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>61</td><td>Services.xml uses proper definitions</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>62</td><td>Proper install/uninstall</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>63</td><td>Config.xml uses proper card/input structure</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>64</td><td>Deprecated config options marked</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>6. Database &amp; Migrations (10/10)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>65</td><td>Migration naming convention</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>66</td><td>Migrations extend MigrationStep</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>67</td><td><code>getCreationTimestamp()</code> matches class</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>68</td><td><code>update()</code> uses Connection parameter</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>69</td><td><code>updateDestructive()</code> present</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>70</td><td>No destructive changes in <code>update()</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>71</td><td>Foreign keys properly defined</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>72</td><td>Indexes on queried columns</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>73</td><td>Migrations are idempotent</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>74</td><td>Proper column types</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>7. Templates &amp; Frontend (12/12)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>75</td><td>Templates use <code>sw_extends</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>76</td><td>Proper block override with parent()</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>77</td><td>Variables escaped with filters</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>78</td><td>No deprecated Twig blocks</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>79</td><td>Snippet keys used (no hardcoded text)</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>80</td><td>Storefront snippets complete</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>81</td><td>Admin snippets complete</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>82</td><td>3 languages (en, de, nl)</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>83</td><td>Proper config.xml i18n</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>84</td><td>No deprecated Twig functions</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>85</td><td>Proper JS plugin registration</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>86</td><td>No console.log in JS</td><td><span class="badge badge-warn">WARN</span></td></tr>
+</table>
+
+<h3>8. Admin &amp; Assets (8/8)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>87</td><td>Admin module properly registered</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>88</td><td>Components use proper registration</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>89</td><td>Route definitions</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>90</td><td>Compiled assets in <code>Resources/public/</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>91</td><td>No console.log in admin JS</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>92</td><td>Vite manifest configured</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>93</td><td>Proper admin snippet files</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>94</td><td>Admin component structure</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>9. Testing &amp; Tooling (3/6)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>95</td><td><code>phpunit.xml.dist</code> present</td><td><span class="badge badge-warn">WARN</span></td></tr>
+<tr><td>96</td><td>Test directory exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>97</td><td><code>phpstan.neon.dist</code> present</td><td><span class="badge badge-warn">WARN</span></td></tr>
+<tr><td>98</td><td>Build scripts present</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>99</td><td><code>.gitignore</code> present</td><td><span class="badge badge-warn">WARN</span></td></tr>
+<tr><td>100</td><td>CI configuration present</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h3>10. Documentation &amp; Meta (5/6)</h3>
+<table>
+<tr><th>#</th><th>Check</th><th>Status</th></tr>
+<tr><td>101</td><td>CHANGELOG.md exists</td><td><span class="badge badge-fail">FAIL</span></td></tr>
+<tr><td>102</td><td>Changelog in multiple languages</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>103</td><td>README.md exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>104</td><td>LICENSE file exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>105</td><td>Version matches composer.json</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>106</td><td>Deprecated features documented</td><td><span class="badge badge-pass">PASS</span></td></tr>
+</table>
+
+<h2>Grade Scale</h2>
+<table class="grade-table">
+<tr><th>Grade</th><th>Score</th><th>Description</th></tr>
+<tr><td>A</td><td>95 &ndash; 100</td><td>Excellent &mdash; production-ready, no issues</td></tr>
+<tr class="highlight"><td><strong>A-</strong></td><td><strong>90 &ndash; 94</strong></td><td><strong>Very Good &mdash; minor warnings only</strong></td></tr>
+<tr><td>B+</td><td>85 &ndash; 89</td><td>Good &mdash; few issues, mostly warnings</td></tr>
+<tr><td>B</td><td>80 &ndash; 84</td><td>Satisfactory &mdash; some issues to address</td></tr>
+<tr><td>C</td><td>65 &ndash; 79</td><td>Needs Improvement &mdash; multiple issues</td></tr>
+<tr><td>D</td><td>50 &ndash; 64</td><td>Poor &mdash; significant issues</td></tr>
+<tr><td>F</td><td>0 &ndash; 49</td><td>Failing &mdash; critical issues throughout</td></tr>
+</table>
+
+<footer>
+  Shopware Extension Quality Audit &mdash; 106 checks evaluated &mdash; Generated 2026-04-07
+</footer>
+
+</div>
+</body>
+</html>
