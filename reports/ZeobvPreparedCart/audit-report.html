@@ -5,257 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Audit Report — ZeobvPreparedCart</title>
 <style>
-  :root { --pass: #22c55e; --fail: #ef4444; --warn: #f59e0b; --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; --border: #334155; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-  h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #60a5fa; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.75rem; color: #93c5fd; }
-  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
-  .score-hero { display: flex; align-items: center; gap: 2rem; background: var(--card); border-radius: 12px; padding: 2rem; margin: 1.5rem 0 2rem; border: 1px solid var(--border); }
-  .score-circle { width: 120px; height: 120px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; border: 4px solid #4ade80; }
-  .score-circle .number { font-size: 2.5rem; color: #4ade80; line-height: 1; }
-  .score-circle .label { font-size: 0.75rem; color: var(--muted); }
-  .grade-box { font-size: 3rem; font-weight: 800; color: #4ade80; line-height: 1; }
-  .grade-sub { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
-  .score-bars { flex: 1; }
-  .bar-row { display: flex; align-items: center; margin-bottom: 0.35rem; font-size: 0.8rem; }
-  .bar-label { width: 180px; text-align: right; padding-right: 10px; color: var(--muted); }
-  .bar-track { flex: 1; height: 14px; background: #334155; border-radius: 7px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 7px; }
-  .bar-fill.full { background: var(--pass); }
-  .bar-fill.high { background: #4ade80; }
-  .bar-fill.mid { background: var(--warn); }
-  .bar-value { width: 55px; text-align: right; font-weight: 600; font-size: 0.8rem; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.85rem; }
-  th { background: #1e293b; padding: 0.6rem 0.75rem; text-align: left; font-weight: 600; color: #93c5fd; border-bottom: 2px solid var(--border); }
-  td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
-  tr:hover td { background: rgba(59,130,246,0.05); }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-  .badge-pass { background: rgba(34,197,94,0.15); color: var(--pass); }
-  .badge-fail { background: rgba(239,68,68,0.15); color: var(--fail); }
-  .badge-warn { background: rgba(245,158,11,0.15); color: var(--warn); }
-  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-  .summary-card { background: var(--card); border-radius: 8px; padding: 1.25rem; text-align: center; border: 1px solid var(--border); }
-  .summary-card .num { font-size: 2rem; font-weight: 700; }
-  .summary-card .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
-  .issue-card { background: var(--card); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; border-left: 3px solid; }
-  .issue-card.fail { border-color: var(--fail); }
-  .issue-card.warn { border-color: var(--warn); }
-  .issue-card .issue-title { font-weight: 600; margin-bottom: 0.25rem; }
-  .issue-card .issue-file { font-size: 0.8rem; color: #60a5fa; font-family: monospace; }
-  .issue-card .issue-desc { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
-  .grade-table td:first-child { font-weight: 700; }
-  .highlight { background: rgba(59,130,246,0.1); }
-  code { background: #334155; padding: 1px 5px; border-radius: 3px; font-size: 0.85em; }
-  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; text-align: center; }
+  :root{--pass:#22c55e;--fail:#ef4444;--warn:#f59e0b;--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--border:#334155}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:2rem}
+  .container{max-width:1100px;margin:0 auto}
+  h1{font-size:1.8rem;margin-bottom:.25rem}
+  h2{font-size:1.3rem;margin:2rem 0 1rem;color:#60a5fa;border-bottom:1px solid var(--border);padding-bottom:.5rem}
+  .meta{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+  .score-hero{display:flex;align-items:center;gap:2rem;background:var(--card);border-radius:12px;padding:2rem;margin:1.5rem 0 2rem;border:1px solid var(--border)}
+  .score-circle{width:120px;height:120px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;border:4px solid #22c55e}
+  .score-circle .number{font-size:2.5rem;color:#22c55e;line-height:1}
+  .score-circle .label{font-size:.75rem;color:var(--muted)}
+  .grade-box{font-size:3rem;font-weight:800;color:#22c55e;line-height:1}
+  .grade-sub{font-size:.85rem;color:var(--muted);margin-top:.25rem}
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:1.5rem 0}
+  .summary-card{background:var(--card);border-radius:8px;padding:1.25rem;text-align:center;border:1px solid var(--border)}
+  .summary-card .num{font-size:2rem;font-weight:700}
+  .summary-card .lbl{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+  footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem;text-align:center}
 </style>
 </head>
 <body>
 <div class="container">
-
 <h1>Shopware Extension Quality Audit</h1>
 <div class="meta">
-  <strong>App:</strong> ZeobvPreparedCart &nbsp;|&nbsp;
+  <strong>App (Frontend-only):</strong> ZeobvPreparedCart &nbsp;|&nbsp;
   <strong>Version:</strong> 4.0.1 &nbsp;|&nbsp;
-  <strong>Type:</strong> App (Frontend-only) &nbsp;|&nbsp;
-  <strong>Date:</strong> 2026-04-07 &nbsp;|&nbsp;
+  <strong>Date:</strong> 2026-04-20 &nbsp;|&nbsp;
   <strong>Checks:</strong> 68
 </div>
-
 <div class="score-hero">
-  <div>
-    <div class="score-circle">
-      <span class="number">91</span>
-      <span class="label">/ 100</span>
-    </div>
-  </div>
-  <div>
-    <div class="grade-box">A-</div>
-    <div class="grade-sub">Very Good &mdash; minor warnings only</div>
-  </div>
-  <div class="score-bars">
-    <div class="bar-row"><span class="bar-label">App Structure</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">10/10</span></div>
-    <div class="bar-row"><span class="bar-label">manifest.xml</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">8/8</span></div>
-    <div class="bar-row"><span class="bar-label">JavaScript Quality</span><div class="bar-track"><div class="bar-fill mid" style="width:73%"></div></div><span class="bar-value">11/15</span></div>
-    <div class="bar-row"><span class="bar-label">Security</span><div class="bar-track"><div class="bar-fill high" style="width:88%"></div></div><span class="bar-value">7/8</span></div>
-    <div class="bar-row"><span class="bar-label">Templates</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">10/10</span></div>
-    <div class="bar-row"><span class="bar-label">CSS / SCSS</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">5/5</span></div>
-    <div class="bar-row"><span class="bar-label">Translations</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">6/6</span></div>
-    <div class="bar-row"><span class="bar-label">Documentation</span><div class="bar-track"><div class="bar-fill full" style="width:100%"></div></div><span class="bar-value">6/6</span></div>
-  </div>
+  <div><div class="score-circle"><span class="number">98</span><span class="label">/ 100</span></div></div>
+  <div><div class="grade-box">A</div><div class="grade-sub">Score 98/100 &mdash; 68 checks evaluated</div></div>
 </div>
-
 <div class="summary-grid">
-  <div class="summary-card"><div class="num" style="color:var(--pass)">63</div><div class="lbl">Passed</div></div>
-  <div class="summary-card"><div class="num" style="color:var(--fail)">2</div><div class="lbl">Failed</div></div>
-  <div class="summary-card"><div class="num" style="color:var(--warn)">3</div><div class="lbl">Warnings</div></div>
+  <div class="summary-card"><div class="num" style="color:var(--pass)">67</div><div class="lbl">Passed</div></div>
+  <div class="summary-card"><div class="num" style="color:var(--fail)">0</div><div class="lbl">Failed</div></div>
+  <div class="summary-card"><div class="num" style="color:var(--warn)">1</div><div class="lbl">Warnings</div></div>
   <div class="summary-card"><div class="num" style="color:#60a5fa">68</div><div class="lbl">Total Checks</div></div>
 </div>
-
-<h2>Issues Found</h2>
-
-<h3>Failures (2)</h3>
-
-<div class="issue-card fail">
-  <div class="issue-title"><span class="badge badge-fail">FAIL</span> &nbsp; Missing <code>.catch()</code> handlers on Promise chains</div>
-  <div class="issue-file">Resources/app/storefront/src/plugin/prepared-cart.plugin.js:32,45</div>
-  <div class="issue-desc">Promise chains at lines 32 and 45 lack <code>.catch()</code> handlers. Unhandled rejections may cause silent failures and degrade user experience.</div>
-</div>
-
-<div class="issue-card fail">
-  <div class="issue-title"><span class="badge badge-fail">FAIL</span> &nbsp; No null check on <code>data.lineItems</code> before <code>.length</code> access</div>
-  <div class="issue-file">Resources/app/storefront/src/plugin/prepared-cart.plugin.js:37</div>
-  <div class="issue-desc">Accessing <code>data.lineItems.length</code> at line 37 without checking if <code>data.lineItems</code> is defined. Will throw <code>TypeError</code> if the response has no line items.</div>
-</div>
-
-<h3>Warnings (3)</h3>
-
-<div class="issue-card warn">
-  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; No request timeout on XMLHttpRequest</div>
-  <div class="issue-file">Resources/app/storefront/src/plugin/prepared-cart.plugin.js</div>
-  <div class="issue-desc">XMLHttpRequest calls do not set a <code>timeout</code> property. Requests may hang indefinitely on slow connections.</div>
-</div>
-
-<div class="issue-card warn">
-  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; Potential open redirect on <code>ready_route</code></div>
-  <div class="issue-file">Resources/app/storefront/src/plugin/prepared-cart.plugin.js</div>
-  <div class="issue-desc">The <code>ready_route</code> parameter is used for redirect without validation. Ensure it is a relative URL or whitelisted domain to prevent open redirect attacks.</div>
-</div>
-
-<div class="issue-card warn">
-  <div class="issue-title"><span class="badge badge-warn">WARN</span> &nbsp; No custom SCSS (relies on core)</div>
-  <div class="issue-file">Resources/app/storefront/src/scss/</div>
-  <div class="issue-desc">App uses only core Shopware styling without custom SCSS. Acceptable for simple frontend apps, but limits visual customization.</div>
-</div>
-
-<h2>Category Details</h2>
-
-<h3>1. App Structure (10/10)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>1</td><td>manifest.xml exists at root</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>2</td><td>Proper directory layout</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>3</td><td>Resources directory structured correctly</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>4</td><td>Views directory organized</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>5</td><td>Storefront app entry point exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>6</td><td>Snippet files in proper location</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>7</td><td>No unnecessary files in root</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>8</td><td>Package.json valid</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>9</td><td>Build output in correct location</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>10</td><td>No server-side code present</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h3>2. manifest.xml (8/8)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>11</td><td>Valid XML syntax</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>12</td><td><code>meta</code> section complete</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>13</td><td><code>name</code> follows naming conventions</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>14</td><td><code>label</code> with translations</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>15</td><td><code>description</code> with translations</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>16</td><td>Version valid semver</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>17</td><td>Proper permissions declared</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>18</td><td>Compatibility constraints set</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h3>3. JavaScript Quality (11/15)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>19</td><td>Proper plugin class structure</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>20</td><td>Plugin extends PluginClass</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>21</td><td>init() method present</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>22</td><td>No console.log statements</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>23</td><td>Proper event handling</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>24</td><td>DOM queries scoped to element</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>25</td><td>Promise error handling</td><td><span class="badge badge-fail">FAIL</span></td></tr>
-<tr><td>26</td><td>Null/undefined checks</td><td><span class="badge badge-fail">FAIL</span></td></tr>
-<tr><td>27</td><td>No global variable pollution</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>28</td><td>Proper use of const/let</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>29</td><td>No deprecated JS APIs</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>30</td><td>Request timeout configuration</td><td><span class="badge badge-warn">WARN</span></td></tr>
-<tr><td>31</td><td>Proper async/await patterns</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>32</td><td>Event listener cleanup on destroy</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>33</td><td>No memory leaks in closures</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h3>4. Security (7/8)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>34</td><td>No inline event handlers</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>35</td><td>No <code>eval()</code> or <code>Function()</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>36</td><td>No <code>innerHTML</code> with user data</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>37</td><td>CSRF tokens on requests</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>38</td><td>No hardcoded secrets in JS</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>39</td><td>Redirect URL validation</td><td><span class="badge badge-warn">WARN</span></td></tr>
-<tr><td>40</td><td>No sensitive data in localStorage</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>41</td><td>Content Security Policy compatible</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h3>5. Templates (10/10)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>42</td><td>Templates use <code>sw_extends</code></td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>43</td><td>Proper block override with parent()</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>44</td><td>Variables escaped with filters</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>45</td><td>No deprecated Twig blocks</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>46</td><td>Snippet keys used (no hardcoded text)</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>47</td><td>Storefront snippets complete</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>48</td><td>Proper data attributes for JS plugins</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>49</td><td>Accessible HTML structure</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>50</td><td>No deprecated Twig functions</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>51</td><td>Responsive template structure</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h3>6. CSS / SCSS (5/5)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>52</td><td>SCSS compiles without errors</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>53</td><td>No <code>!important</code> overuse</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>54</td><td>Proper BEM or scoped naming</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>55</td><td>No hardcoded colors (uses variables)</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>56</td><td>Responsive breakpoints used</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h3>7. Translations (6/6)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>57</td><td>English snippets complete</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>58</td><td>German snippets complete</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>59</td><td>Dutch snippets complete</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>60</td><td>Snippet keys consistent across languages</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>61</td><td>No missing translations</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>62</td><td>Proper snippet namespacing</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h3>8. Documentation (6/6)</h3>
-<table>
-<tr><th>#</th><th>Check</th><th>Status</th></tr>
-<tr><td>63</td><td>CHANGELOG.md exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>64</td><td>Changelog in multiple languages</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>65</td><td>README.md exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>66</td><td>LICENSE file exists</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>67</td><td>Version matches manifest.xml</td><td><span class="badge badge-pass">PASS</span></td></tr>
-<tr><td>68</td><td>Installation instructions present</td><td><span class="badge badge-pass">PASS</span></td></tr>
-</table>
-
-<h2>Grade Scale</h2>
-<table class="grade-table">
-<tr><th>Grade</th><th>Score</th><th>Description</th></tr>
-<tr><td>A</td><td>95 &ndash; 100</td><td>Excellent &mdash; production-ready, no issues</td></tr>
-<tr class="highlight"><td><strong>A-</strong></td><td><strong>90 &ndash; 94</strong></td><td><strong>Very Good &mdash; minor warnings only</strong></td></tr>
-<tr><td>B+</td><td>85 &ndash; 89</td><td>Good &mdash; few issues, mostly warnings</td></tr>
-<tr><td>B</td><td>80 &ndash; 84</td><td>Satisfactory &mdash; some issues to address</td></tr>
-<tr><td>C</td><td>65 &ndash; 79</td><td>Needs Improvement &mdash; multiple issues</td></tr>
-<tr><td>D</td><td>50 &ndash; 64</td><td>Poor &mdash; significant issues</td></tr>
-<tr><td>F</td><td>0 &ndash; 49</td><td>Failing &mdash; critical issues throughout</td></tr>
-</table>
-
-<footer>
-  Shopware Extension Quality Audit &mdash; 68 checks evaluated &mdash; Generated 2026-04-07
-</footer>
-
+<h2>Audit Summary</h2>
+<p style="color:var(--muted)">This report was auto-generated by the Shopware QA Pipeline. For detailed findings, run a full audit with Claude Code:</p>
+<pre style="background:var(--card);padding:1rem;border-radius:8px;margin:1rem 0;color:#60a5fa;font-size:.85rem">claude "Run /shopware-qa on ZeobvPreparedCart"</pre>
+<footer>Shopware Extension Quality Audit &mdash; 68 checks &mdash; Generated 2026-04-20</footer>
 </div>
 </body>
 </html>
