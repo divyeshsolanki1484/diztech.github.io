@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shopware 6 QA Report — ZeobvCountrySelect</title>
+<style>
+  :root { --pass:#22c55e; --warn:#f59e0b; --fail:#ef4444; --ink:#0f172a; --muted:#64748b; --bg:#f8fafc; --card:#ffffff; --border:#e2e8f0; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--ink); margin:0; padding:24px; }
+  .wrap { max-width:1040px; margin:0 auto; }
+  header { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:28px 32px; border-radius:14px; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  .logo { background:#fff; border-radius:10px; padding:10px 14px; font-weight:800; color:#0f172a; letter-spacing:.5px; }
+  header h1 { margin:0; font-size:22px; font-weight:700; }
+  header .meta { color:#cbd5e1; font-size:13px; margin-top:4px; }
+  .grade { margin-left:auto; background:var(--pass); color:#fff; font-weight:800; font-size:32px; padding:14px 24px; border-radius:12px; min-width:110px; text-align:center; }
+  .score { font-size:14px; font-weight:600; opacity:.9; display:block; }
+  main { background:var(--card); margin-top:20px; padding:28px 32px; border-radius:14px; border:1px solid var(--border); }
+  h2 { font-size:18px; border-bottom:1px solid var(--border); padding-bottom:8px; margin-top:28px; }
+  h3 { font-size:14px; margin-top:16px; }
+  .cat { margin:12px 0; }
+  .cat .label { display:flex; justify-content:space-between; font-size:13px; font-weight:600; }
+  .bar { background:var(--border); height:12px; border-radius:6px; overflow:hidden; margin-top:4px; }
+  .bar > div { height:100%; background:var(--pass); border-radius:6px; }
+  .block { background:#fef2f2; border-left:4px solid var(--fail); padding:14px 18px; border-radius:8px; margin:16px 0; }
+  .block h3 { margin:0 0 8px; color:#991b1b; font-size:14px; }
+  .note { background:#fffbeb; border-left:4px solid var(--warn); padding:12px 16px; border-radius:8px; margin:16px 0; font-size:13px; }
+  details { border:1px solid var(--border); border-radius:10px; margin:10px 0; overflow:hidden; }
+  summary { cursor:pointer; padding:14px 18px; font-weight:600; background:#f1f5f9; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"▸"; transition:transform .2s; }
+  details[open] summary::after { transform:rotate(90deg); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top; }
+  th { background:#f8fafc; font-weight:600; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+  tbody tr:nth-child(even) { background:#fafafa; }
+  .status { display:inline-block; padding:3px 10px; border-radius:99px; font-size:11px; font-weight:700; color:#fff; white-space:nowrap; }
+  .pass { background:var(--pass); }
+  .warn { background:var(--warn); }
+  .fail { background:var(--fail); }
+  code { background:#f1f5f9; padding:1px 6px; border-radius:4px; font-size:12px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  pre { background:#0f172a; color:#e2e8f0; padding:12px 16px; border-radius:8px; overflow-x:auto; font-size:12px; }
+  ul { margin:10px 0; padding-left:22px; } li { margin:6px 0; }
+  footer { text-align:center; color:var(--muted); font-size:12px; margin-top:24px; }
+  @media print { body { background:#fff; padding:0; } main, header { box-shadow:none; border:none; } details > * { display:block !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="logo">DizTech</div>
+  <div>
+    <h1>Shopware 6 QA Report — ZeobvCountrySelect</h1>
+    <div class="meta">v4.0.3 · App (storefront-only) · 2026-04-14</div>
+  </div>
+  <div class="grade">A<span class="score">95/100</span></div>
+</header>
+
+<main>
+
+<h2>Score Overview</h2>
+<div class="cat"><div class="label"><span>Extension Structure</span><span>25/25 (25%)</span></div><div class="bar"><div style="width:100%"></div></div></div>
+<div class="cat"><div class="label"><span>Store Review</span><span>30/35 (35%)</span></div><div class="bar"><div style="width:86%"></div></div></div>
+<div class="cat"><div class="label"><span>Deprecated APIs</span><span>25/25 (25%)</span></div><div class="bar"><div style="width:100%"></div></div></div>
+<div class="cat"><div class="label"><span>Coding Standards</span><span>15/15 (15%)</span></div><div class="bar"><div style="width:100%"></div></div></div>
+
+<div class="block">
+  <h3>❌ Blocking Issues (1)</h3>
+  <ul><li><strong>CHANGELOG.md has no dates per version.</strong> All 10 entries lack release dates. Add to both <code>CHANGELOG.md</code> and <code>CHANGELOG_de-DE.md</code>.</li></ul>
+</div>
+
+<div class="note">
+  <strong>App nature:</strong> small storefront-only Shopware 6 App. No backend, no <code>config.xml</code>, no <code>cms.xml</code>, no permissions block. The real risk surface is one Twig override, one script hook, and three storefront JS files.
+</div>
+
+<h2>Specific findings worth attention</h2>
+
+<h3>1. Credential exposure (warning)</h3>
+<p><code>Resources/scripts/storefront-zeobv-store-api/token.twig</code> still returns <code>salesChannelContext.salesChannel.accessKey</code>:</p>
+<pre>{% set response = services.response.json({
+    'key': hook.salesChannelContext.salesChannel.accessKey,
+}) %}</pre>
+<p>The access key is the <strong>public</strong> store-api key (not a secret). Flagged because:</p>
+<ul>
+  <li>CHANGELOG <strong>3.0.2</strong> says "Removed store-api credentials from twig" but the file still exists.</li>
+  <li>CHANGELOG <strong>4.0.2</strong> says "Removed context token from Twig script response… preventing token leakage", yet <code>header.html.twig:14</code> still embeds <code>data-zeobv-country-select-context-token="{{ app.session.get('sw-context-token') }}"</code> in HTML. The context token <em>is</em> session-bound and should not be in HTML.</li>
+</ul>
+
+<h3>2. innerHTML interpolation (warning)</h3>
+<p><code>country-select.plugin.js:43</code>:</p>
+<pre>return `&lt;li class="zeobv-country-select__option" data-value="${element.id}"&gt;${element.name}&lt;/li&gt;`</pre>
+<p>Country names are currently safe ISO names but the template-literal-into-innerHTML pattern is a latent XSS trap. Switch to <code>textContent</code> or DOM construction.</p>
+
+<h2>Checks per Category</h2>
+
+<details open>
+<summary>Extension Structure (App) · 25/25</summary>
+<table>
+  <thead><tr><th>#</th><th>Check</th><th>Status</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>manifest.xml present and valid</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>2</td><td>XSD points to trunk</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>3</td><td>meta.name PascalCase</td><td><span class="status pass">PASS</span></td><td>ZeobvCountrySelect</td></tr>
+    <tr><td>4</td><td>meta.label default + de-DE</td><td><span class="status pass">PASS</span></td><td>+ nl-NL</td></tr>
+    <tr><td>5</td><td>meta.description default + de-DE</td><td><span class="status pass">PASS</span></td><td>+ nl-NL</td></tr>
+    <tr><td>6</td><td>Descriptions per language correct</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>7</td><td>meta.author</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>8</td><td>meta.version SemVer</td><td><span class="status pass">PASS</span></td><td>4.0.3</td></tr>
+    <tr><td>9</td><td>meta.license</td><td><span class="status pass">PASS</span></td><td>proprietary</td></tr>
+    <tr><td>10</td><td>meta.icon present and file exists</td><td><span class="status pass">PASS</span></td><td>Resources/config/plugin.png</td></tr>
+    <tr><td>11</td><td>meta.copyright</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>12</td><td>CHANGELOG.md present</td><td><span class="status pass">PASS</span></td><td>EN + DE</td></tr>
+    <tr><td>13</td><td>Resources/ directory</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>14</td><td>config.xml XSD trunk</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>15</td><td>config.xml types match defaults</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>16</td><td>cms.xml XSD trunk</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>17</td><td>CMS block names vendor prefix</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>18</td><td>Custom field names vendor prefix</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>19</td><td>Permissions not too broad</td><td><span class="status pass">PASS</span></td><td>No permissions block</td></tr>
+  </tbody>
+</table>
+</details>
+
+<details open>
+<summary>Store Review · 30/35</summary>
+<table>
+  <thead><tr><th>#</th><th>Check</th><th>Status</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>CHANGELOG present &amp; non-empty</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>2</td><td>SemVer headings</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>3</td><td>Dates per version</td><td><span class="status fail">FAIL</span></td><td>Blocker</td></tr>
+    <tr><td>4</td><td>No hardcoded credentials</td><td><span class="status warn">WARNING</span></td><td>token.twig + context token in HTML</td></tr>
+    <tr><td>5</td><td>No debug statements</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>6</td><td>No undocumented external HTTP</td><td><span class="status pass">PASS</span></td><td>Store-api is the documented purpose</td></tr>
+    <tr><td>7</td><td>shopware/core constraint</td><td><span class="status pass">PASS</span></td><td>N/A — apps</td></tr>
+    <tr><td>8</td><td>SW constraint ≥ 6.5</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>9</td><td>License</td><td><span class="status pass">PASS</span></td><td>manifest license</td></tr>
+    <tr><td>10</td><td>No GPL-incompatible deps</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>11</td><td>App description</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>12</td><td>No inline scripts/styles</td><td><span class="status pass">PASS</span></td><td>JSON in data-attribute is fine</td></tr>
+    <tr><td>13</td><td>No legacy namespaces</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>14</td><td>Cookies via CookieProviderInterface</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>15</td><td>shopware/storefront required</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>16</td><td>No SQL string concatenation</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>17</td><td>No ALTER TABLE on core tables</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>18</td><td>No @internal core classes used</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>19</td><td>PHPStan level 5+</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>20</td><td>Twig overrides use {{ parent() }}</td><td><span class="status pass">PASS</span></td><td>header.html.twig:4</td></tr>
+    <tr><td>21</td><td>No unsanitized |raw</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>22</td><td>Snippet en_GB + de_DE</td><td><span class="status pass">PASS</span></td><td>+ nl_NL</td></tr>
+    <tr><td>23</td><td>Strict SemVer</td><td><span class="status pass">PASS</span></td><td>4.0.3</td></tr>
+    <tr><td>24</td><td>manifest version = CHANGELOG</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>25</td><td>No breaking changes w/o MAJOR bump</td><td><span class="status pass">PASS</span></td><td>4.0.0 = SW 6.7</td></tr>
+    <tr><td>26</td><td>Keep a Changelog format</td><td><span class="status warn">WARNING</span></td><td>Bullets only</td></tr>
+    <tr><td>27</td><td>Backwards compatible</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>28</td><td>Migrations non-destructive</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>29</td><td>SW 6.6 compat</td><td><span class="status pass">PASS</span></td><td>App is version-agnostic</td></tr>
+    <tr><td>30</td><td>SW 6.5 compat</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>31</td><td>PHP 8.1 + 8.2</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>32</td><td>No deprecated code</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>33</td><td>PHPStan config</td><td><span class="status pass">PASS</span></td><td>N/A</td></tr>
+    <tr><td>34</td><td>Conventional commits</td><td><span class="status warn">WARNING</span></td><td>Not verified</td></tr>
+    <tr><td>35</td><td>Git branching strategy</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>36</td><td>No DOM XSS via interpolated innerHTML</td><td><span class="status warn">WARNING</span></td><td>country-select.plugin.js:43</td></tr>
+  </tbody>
+</table>
+</details>
+
+<details>
+<summary>Deprecated APIs · 25/25</summary>
+<p style="padding:14px 18px;">All N/A — no PHP code in this app.</p>
+</details>
+
+<details>
+<summary>Coding Standards · 15/15</summary>
+<p style="padding:14px 18px;">All PHP-oriented checks N/A. Twig is correctly under <code>Resources/views/storefront/</code> and storefront JS under <code>Resources/app/storefront/src/</code>.</p>
+</details>
+
+<h2>Quick Wins</h2>
+<ul>
+  <li><strong>Add 2026-04-14 to the latest CHANGELOG entry</strong> — closes the blocker.</li>
+  <li><strong>Remove <code>data-...-context-token</code></strong> from <code>header.html.twig:14</code>; let the JS plugin read the cookie instead.</li>
+  <li><strong>Delete or honestly document <code>token.twig</code></strong> — the changelog claim that credentials were removed contradicts the file's continued existence.</li>
+  <li><strong>Replace innerHTML interpolation</strong> in <code>country-select.plugin.js:42-48</code> with safe DOM construction.</li>
+  <li><strong>Adopt Keep a Changelog sections</strong> in both changelog files.</li>
+</ul>
+
+<h2>Recommendations</h2>
+<ul>
+  <li>Document in README that this app needs zero permissions and has no backend, so reviewers don't wonder.</li>
+  <li>Run <code>/shopware-fix</code> to clear the dates blocker and bump to 4.0.4.</li>
+  <li>Consider migrating from app to plugin if the team wants real PHPUnit coverage.</li>
+</ul>
+
+</main>
+
+<footer>Generated by Claude Code <code>/shopware-qa</code> skill — DizTech B.V.</footer>
+
+</div>
+</body>
+</html>

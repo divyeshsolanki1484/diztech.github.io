@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shopware 6 QA Report — ZeobvGetNotified</title>
+<style>
+  :root { --pass:#22c55e; --warn:#f59e0b; --fail:#ef4444; --ink:#0f172a; --muted:#64748b; --bg:#f8fafc; --card:#ffffff; --border:#e2e8f0; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--ink); margin:0; padding:24px; }
+  .wrap { max-width:1040px; margin:0 auto; }
+  header { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:28px 32px; border-radius:14px; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  .logo { background:#fff; border-radius:10px; padding:10px 14px; font-weight:800; color:#0f172a; letter-spacing:.5px; }
+  header h1 { margin:0; font-size:22px; font-weight:700; }
+  header .meta { color:#cbd5e1; font-size:13px; margin-top:4px; }
+  .grade { margin-left:auto; background:var(--pass); color:#fff; font-weight:800; font-size:32px; padding:14px 24px; border-radius:12px; min-width:110px; text-align:center; }
+  .score { font-size:14px; font-weight:600; opacity:.9; display:block; }
+  main { background:var(--card); margin-top:20px; padding:28px 32px; border-radius:14px; border:1px solid var(--border); }
+  h2 { font-size:18px; border-bottom:1px solid var(--border); padding-bottom:8px; margin-top:28px; }
+  h3 { font-size:15px; margin-top:18px; color:var(--ink); }
+  .cat { margin:12px 0; }
+  .cat .label { display:flex; justify-content:space-between; font-size:13px; font-weight:600; }
+  .bar { background:var(--border); height:12px; border-radius:6px; overflow:hidden; margin-top:4px; }
+  .bar > div { height:100%; background:var(--pass); border-radius:6px; transition:width .4s; }
+  .block { background:#fef2f2; border-left:4px solid var(--fail); padding:14px 18px; border-radius:8px; margin:16px 0; }
+  .block h3 { margin:0 0 8px; color:#991b1b; font-size:14px; }
+  details { border:1px solid var(--border); border-radius:10px; margin:10px 0; overflow:hidden; }
+  details[open] { background:#fff; }
+  summary { cursor:pointer; padding:14px 18px; font-weight:600; background:#f1f5f9; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"▸"; transition:transform .2s; }
+  details[open] summary::after { transform:rotate(90deg); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top; }
+  th { background:#f8fafc; font-weight:600; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+  tbody tr:nth-child(even) { background:#fafafa; }
+  .status { display:inline-block; padding:3px 10px; border-radius:99px; font-size:11px; font-weight:700; color:#fff; white-space:nowrap; }
+  .pass { background:var(--pass); }
+  .warn { background:var(--warn); }
+  .fail { background:var(--fail); }
+  code { background:#f1f5f9; padding:1px 6px; border-radius:4px; font-size:12px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  ul { margin:10px 0; padding-left:22px; }
+  li { margin:6px 0; }
+  footer { text-align:center; color:var(--muted); font-size:12px; margin-top:24px; }
+  @media print { body { background:#fff; padding:0; } main, header { box-shadow:none; border:none; } details { border:none; } details > * { display:block !important; } summary::after { display:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="logo">DizTech</div>
+  <div>
+    <h1>Shopware 6 QA Report — ZeobvGetNotified</h1>
+    <div class="meta">v3.1.0 · Plugin · Shopware &ge;6.7.0 · 2026-04-14</div>
+  </div>
+  <div class="grade">
+    A
+    <span class="score">96/100</span>
+  </div>
+</header>
+
+<main>
+
+<h2>Score Overview</h2>
+
+<div class="cat"><div class="label"><span>Extension Structure</span><span>25/25 (25%)</span></div><div class="bar"><div style="width:100%"></div></div></div>
+<div class="cat"><div class="label"><span>Store Review</span><span>32/35 (35%)</span></div><div class="bar"><div style="width:91%;background:#22c55e"></div></div></div>
+<div class="cat"><div class="label"><span>Deprecated APIs</span><span>24/25 (25%)</span></div><div class="bar"><div style="width:96%"></div></div></div>
+<div class="cat"><div class="label"><span>Coding Standards</span><span>15/15 (15%)</span></div><div class="bar"><div style="width:100%"></div></div></div>
+
+<div class="block">
+  <h3>❌ Blocking Issues (1)</h3>
+  <ul>
+    <li><strong>CHANGELOG.md missing dates per version.</strong> Store Review requires a release date on every version entry. Add <code># 3.1.0 — 2026-MM-DD</code> headings to both <code>CHANGELOG.md</code> and <code>CHANGELOG_de-DE.md</code>.</li>
+  </ul>
+</div>
+
+<h2>Checks per Category</h2>
+
+<details open>
+<summary>Plugin Structure · 25/25</summary>
+<table>
+  <thead><tr><th>#</th><th>Check</th><th>Status</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>composer.json valid JSON</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>2</td><td>type = shopware-platform-plugin</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>3</td><td>extra.shopware-plugin-class → existing class</td><td><span class="status pass">PASS</span></td><td><code>Zeobv\GetNotified\ZeobvGetNotified</code></td></tr>
+    <tr><td>4</td><td>autoload.psr-4 configured</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>5</td><td>Main plugin class present</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>6</td><td>Extends Shopware\Core\Framework\Plugin</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>7</td><td>src/ directory</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>8</td><td>src/Resources/ directory</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>9</td><td>CHANGELOG.md present</td><td><span class="status pass">PASS</span></td><td>EN + DE</td></tr>
+    <tr><td>10</td><td>Plugin name PascalCase</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>11</td><td>Namespace matches PSR-4</td><td><span class="status pass">PASS</span></td><td>60/60 files</td></tr>
+    <tr><td>12</td><td>extra.label has en-GB + de-DE</td><td><span class="status pass">PASS</span></td><td>+ nl-NL</td></tr>
+    <tr><td>13</td><td>Lifecycle methods : void</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>14</td><td>uninstall() checks keepUserData()</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>15</td><td>updateDestructive() in migrations</td><td><span class="status pass">PASS</span></td><td>10/10</td></tr>
+  </tbody>
+</table>
+</details>
+
+<details open>
+<summary>Store Review · 32/35</summary>
+<table>
+  <thead><tr><th>#</th><th>Check</th><th>Status</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>CHANGELOG present &amp; non-empty</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>2</td><td>SemVer headings</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>3</td><td>Dates per version</td><td><span class="status fail">FAIL</span></td><td>No dates in any entry</td></tr>
+    <tr><td>4</td><td>No hardcoded credentials</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>5</td><td>No debug statements</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>6</td><td>No undocumented external HTTP</td><td><span class="status pass">PASS</span></td><td>PluginVitalsService is documented</td></tr>
+    <tr><td>7</td><td>shopware/core constraint</td><td><span class="status pass">PASS</span></td><td>&ge;6.7.0</td></tr>
+    <tr><td>8</td><td>SW constraint ≥ 6.5</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>9</td><td>License in composer.json</td><td><span class="status pass">PASS</span></td><td>proprietary</td></tr>
+    <tr><td>10</td><td>No GPL-incompatible deps</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>11</td><td>Plugin description</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>12</td><td>No inline scripts/styles without CSP nonce</td><td><span class="status warn">WARNING</span></td><td>Inline onclick in waitlist-widget.html.twig:19</td></tr>
+    <tr><td>13</td><td>No legacy namespaces</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>14</td><td>Cookies via CookieProviderInterface</td><td><span class="status pass">PASS</span></td><td>N/A — no cookies set</td></tr>
+    <tr><td>15</td><td>shopware/storefront required</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>16</td><td>No SQL string concatenation</td><td><span class="status pass">PASS</span></td><td>Named params only</td></tr>
+    <tr><td>17</td><td>No ALTER TABLE on core tables</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>18</td><td>No @internal core classes used</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>19</td><td>PHPStan level 5+</td><td><span class="status pass">PASS</span></td><td>Configured at level <strong>7</strong></td></tr>
+    <tr><td>20</td><td>Twig overrides use {{ parent() }}</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>21</td><td>No unsanitized |raw</td><td><span class="status warn">WARNING</span></td><td>2× on translated privacy notice with path() URLs</td></tr>
+    <tr><td>22</td><td>Snippet files en_GB + de_DE</td><td><span class="status pass">PASS</span></td><td>+ nl_NL</td></tr>
+    <tr><td>23</td><td>Strict SemVer</td><td><span class="status pass">PASS</span></td><td>3.1.0</td></tr>
+    <tr><td>24</td><td>composer version = CHANGELOG</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>25</td><td>No breaking changes w/o MAJOR bump</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>26</td><td>Keep a Changelog format</td><td><span class="status warn">WARNING</span></td><td>No Added/Changed/Fixed sections</td></tr>
+    <tr><td>27</td><td>Backwards compatible</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>28</td><td>update() non-destructive; updateDestructive() exists</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>29</td><td>Compatible with SW 6.6 (mandatory)</td><td><span class="status warn">WARNING</span></td><td>&ge;6.7.0 excludes 6.6 — conscious drop</td></tr>
+    <tr><td>30</td><td>Compatible with SW 6.5 (recommended)</td><td><span class="status pass">PASS</span></td><td>N/A at 6.7+</td></tr>
+    <tr><td>31</td><td>PHP 8.1 + 8.2</td><td><span class="status pass">PASS</span></td><td>^8.0 covers both</td></tr>
+    <tr><td>32</td><td>No deprecated code</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>33</td><td>PHPStan config present</td><td><span class="status pass">PASS</span></td><td>phpstan.neon.dist</td></tr>
+    <tr><td>34</td><td>Conventional commits</td><td><span class="status warn">WARNING</span></td><td>Not verified</td></tr>
+    <tr><td>35</td><td>Git branching strategy</td><td><span class="status pass">PASS</span></td><td>via DevOps skill</td></tr>
+  </tbody>
+</table>
+</details>
+
+<details>
+<summary>Deprecated APIs · 24/25</summary>
+<table>
+  <thead><tr><th>#</th><th>Check</th><th>Status</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>No @deprecated SW 6.4 APIs</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>2</td><td>No @deprecated SW 6.5 APIs</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>3</td><td>No @deprecated SW 6.6 APIs</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>4</td><td>No removed APIs</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>5</td><td>Criteria misuse (unbounded queries)</td><td><span class="status warn">WARNING</span></td><td>Targeted audit recommended on Service/*</td></tr>
+    <tr><td>6</td><td>Raw DB queries justified</td><td><span class="status pass">PASS</span></td><td>Intentional parameterized SQL in install hooks</td></tr>
+    <tr><td>7</td><td>Event names as class constants</td><td><span class="status pass">PASS</span></td><td></td></tr>
+  </tbody>
+</table>
+</details>
+
+<details>
+<summary>Coding Standards · 15/15</summary>
+<table>
+  <thead><tr><th>#</th><th>Check</th><th>Status</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>declare(strict_types=1)</td><td><span class="status pass">PASS</span></td><td>60/60 files</td></tr>
+    <tr><td>2</td><td>Services in XML</td><td><span class="status pass">PASS</span></td><td>services.xml + 7 imports</td></tr>
+    <tr><td>3</td><td>Subscribers implement interface</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>4</td><td>No @internal on public APIs</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>5</td><td>Constructor injection</td><td><span class="status pass">PASS</span></td><td>container-&gt;get only in plugin lifecycle hooks</td></tr>
+    <tr><td>6</td><td>Entities have EntityDefinition</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>7</td><td>Migrations implement update()</td><td><span class="status pass">PASS</span></td><td>10/10</td></tr>
+    <tr><td>8</td><td>Twig in src/Resources/views/</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>9</td><td>Admin Vue in src/Resources/app/administration/</td><td><span class="status pass">PASS</span></td><td></td></tr>
+    <tr><td>10</td><td>Storefront JS in src/Resources/app/storefront/</td><td><span class="status pass">PASS</span></td><td></td></tr>
+  </tbody>
+</table>
+</details>
+
+<h2>Quick Wins</h2>
+<ul>
+  <li><strong>Add dates to CHANGELOG.md</strong> — the sole blocking FAIL. Format <code># 3.1.0 — 2026-MM-DD</code> in both EN and DE changelog files.</li>
+  <li><strong>Adopt Keep a Changelog sections</strong> — group bullets under Added / Changed / Fixed / Removed.</li>
+  <li><strong>Move inline onclick out of Twig</strong> — into the existing <code>zeobv-waitlist-form.plugin.js</code>.</li>
+  <li><strong>Wrap |raw privacy strings</strong> — restructure translations with anchor tags so <code>|raw</code> is no longer needed.</li>
+  <li><strong>Audit Criteria usage</strong> — confirm <code>setLimit()</code> on every unbounded entity lookup in <code>Service/*</code>.</li>
+</ul>
+
+<h2>Recommendations</h2>
+<ul>
+  <li><strong>Shopware 6.6 compatibility decision</strong> — relax constraint to <code>&gt;=6.6.0</code> for Premium compliance, or document the conscious drop.</li>
+  <li><strong>Replace raw SQL translation loader</strong> in <code>ZeobvGetNotified.php:105</code> with <code>mail_template_translation.repository</code> writes.</li>
+  <li><strong>Split the main plugin class</strong> — extract mail template bootstrapping into a dedicated installer service.</li>
+  <li><strong>PhpStan level 8</strong> once <code>FlowBuilder</code> / <code>Compatibility</code> excludes are reviewed.</li>
+  <li><strong>Enable commitlint</strong> in CI to satisfy the conventional-commits Premium check automatically.</li>
+</ul>
+
+</main>
+
+<footer>Generated by Claude Code <code>/shopware-qa</code> skill — DizTech B.V.</footer>
+
+</div>
+</body>
+</html>
